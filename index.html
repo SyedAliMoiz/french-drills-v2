@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>French Drills V2 — Adaptive</title>
+<meta name="theme-color" content="#3B82F6">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇫🇷</text></svg>">
+<style>
+:root {
+  --bg: #FAFAFA;
+  --surface: #FFFFFF;
+  --text: #1A1A1A;
+  --text-dim: #6B6B6B;
+  --accent: #2563EB;
+  --accent-hover: #1D4ED8;
+  --accent-on: #FFFFFF;
+  --accent-faint: #EFF4FF;
+  --ok: #16A34A;
+  --ok-bg: #E8F5E9;
+  --ok-border: #86E8AB;
+  --err: #DC2626;
+  --err-bg: #FEF2F2;
+  --err-border: #FECACA;
+  --warn: #D97706;
+  --warn-bg: #FFFBEB;
+  --warn-border: #FDE68A;
+  --line: #E5E5E5;
+  --field-bg: #FFFFFF;
+  --field-border: #D4D4D4;
+  --field-focus: #2563EB;
+  --key-bg: #F5F5F5;
+  --key-hover: #E5E5E5;
+  --key-border: #D4D4D4;
+  --key-text: #1A1A1A;
+  --bar-track: #E5E5E5;
+  --bar-fill: #2563EB;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#191919;--surface:#262626;--text:#F2F2F2;--text-dim:#8A8A8A;
+  --accent:#3B82F6;--accent-hover:#60A5FA;--accent-on:#FFFFFF;--accent-faint:#1E293B;
+  --ok:#4ADE80;--ok-bg:#14291E;--ok-border:#166534;
+  --err:#F87171;--err-bg:#2D1515;--err-border:#7F1D1D;
+  --warn:#FBBF24;--warn-bg:#2D2410;--warn-border:#854D0E;
+  --line:#333333;--field-bg:#1F1F1F;--field-border:#404040;--field-focus:#3B82F6;
+  --key-bg:#2A2A2A;--key-hover:#363636;--key-border:#404040;--key-text:#D4D4D4;
+  --bar-track:#333333;--bar-fill:#3B82F6;--card-shadow:none;
+}}
+:root[data-theme="dark"]{
+  --bg:#191919;--surface:#262626;--text:#F2F2F2;--text-dim:#8A8A8A;
+  --accent:#3B82F6;--accent-hover:#60A5FA;--accent-on:#FFFFFF;--accent-faint:#1E293B;
+  --ok:#4ADE80;--ok-bg:#14291E;--ok-border:#166534;
+  --err:#F87171;--err-bg:#2D1515;--err-border:#7F1D1D;
+  --warn:#FBBF24;--warn-bg:#2D2410;--warn-border:#854D0E;
+  --line:#333333;--field-bg:#1F1F1F;--field-border:#404040;--field-focus:#3B82F6;
+  --key-bg:#2A2A2A;--key-hover:#363636;--key-border:#404040;--key-text:#D4D4D4;
+  --bar-track:#333333;--bar-fill:#3B82F6;--card-shadow:none;
+}
+:root[data-theme="light"]{
+  --bg:#FAFAFA;--surface:#FFFFFF;--text:#1A1A1A;--text-dim:#6B6B6B;
+  --accent:#2563EB;--accent-hover:#1D4ED8;--accent-on:#FFFFFF;--accent-faint:#EFF4FF;
+  --ok:#16A34A;--ok-bg:#E8F5E9;--ok-border:#86E8AB;
+  --err:#DC2626;--err-bg:#FEF2F2;--err-border:#FECACA;
+  --warn:#D97706;--warn-bg:#FFFBEB;--warn-border:#FDE68A;
+  --line:#E5E5E5;--field-bg:#FFFFFF;--field-border:#D4D4D4;--field-focus:#2563EB;
+  --key-bg:#F5F5F5;--key-hover:#E5E5E5;--key-border:#D4D4D4;--key-text:#1A1A1A;
+  --bar-track:#E5E5E5;--bar-fill:#2563EB;--card-shadow:0 1px 3px rgba(0,0,0,0.06);
+}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100dvh;-webkit-text-size-adjust:100%}
+.wrap{max-width:480px;margin:0 auto;padding:1.25rem 1rem}
+.serif{font-family:Georgia,"Times New Roman",serif}
+.hdr{font-size:1.375rem;font-weight:700;letter-spacing:-0.01em}
+.sub{font-size:.8125rem;color:var(--text-dim)}
+.label{font-size:.6875rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim)}
+.tabnum{font-variant-numeric:tabular-nums}
+.prog-track{height:4px;background:var(--bar-track);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:var(--bar-fill);border-radius:2px;transition:width .35s ease}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1.25rem;box-shadow:var(--card-shadow);margin-bottom:.75rem}
+.card-accent{border-left:3px solid var(--accent)}
+.card-ok{border-left-color:var(--ok)}
+.card-err{border-left-color:var(--err)}
+.card-title{font-weight:600;margin-bottom:.25rem}
+.card-sub{font-size:.8125rem;color:var(--text-dim)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;width:100%;font-family:inherit;font-size:1rem;font-weight:600;padding:.75rem 1.5rem;border:none;border-radius:8px;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;transition:background .15s,opacity .15s}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn-p{background:var(--accent);color:var(--accent-on)}
+.btn-p:hover:not(:disabled){background:var(--accent-hover)}
+.btn-g{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.btn-g:hover:not(:disabled){background:var(--accent-faint)}
+.btn-sm{font-size:.875rem;padding:.5rem 1rem}
+.btn-ok{background:var(--ok);color:#fff}
+.field{width:100%;font-family:Georgia,"Times New Roman",serif;font-size:1.125rem;padding:.75rem;background:var(--field-bg);color:var(--text);border:1.5px solid var(--field-border);border-radius:6px;outline:none;transition:border-color .15s}
+.field:focus{border-color:var(--field-focus)}
+.field:disabled{opacity:.6;cursor:not-allowed}
+.field-ok{border-color:var(--ok)!important;background:var(--ok-bg)!important}
+.field-err{border-color:var(--err)!important;background:var(--err-bg)!important}
+.field-pw{font-family:inherit;font-size:1rem}
+.keys{display:flex;flex-wrap:wrap;gap:6px;margin:.625rem 0}
+.key{font-family:Georgia,serif;font-size:1rem;min-width:38px;height:36px;display:flex;align-items:center;justify-content:center;padding:0 4px;background:var(--key-bg);color:var(--key-text);border:1px solid var(--key-border);border-radius:6px;cursor:pointer;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation;transition:background .1s,transform .08s}
+.key:hover{background:var(--key-hover)}
+.key:active{transform:scale(.93)}
+.key:disabled{opacity:.3;pointer-events:none}
+.fb{padding:.875rem;border-radius:6px;font-size:.9375rem;line-height:1.5;margin-top:.75rem}
+.fb-ok{background:var(--ok-bg);border:1px solid var(--ok-border);color:var(--ok)}
+.fb-err{background:var(--err-bg);border:1px solid var(--err-border);color:var(--err)}
+.fb-head{font-weight:700;display:block;margin-bottom:.2rem}
+.fb-answer{font-family:Georgia,serif;font-weight:600}
+.row{display:flex;align-items:center;gap:.75rem}
+.col{display:flex;flex-direction:column;gap:.75rem}
+.mt{margin-top:1rem}.mt-sm{margin-top:.5rem}.mb{margin-bottom:1rem}
+.center{text-align:center}
+.between{justify-content:space-between}
+.flex1{flex:1}
+.dash-section{margin-bottom:1.25rem}
+.dash-section-title{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);margin-bottom:.5rem;padding-left:.25rem}
+.stat-row{display:flex;gap:.5rem;flex-wrap:wrap}
+.stat-box{flex:1;min-width:90px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.75rem;text-align:center}
+.stat-val{font-size:1.5rem;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+.stat-label{font-size:.6875rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.05em;margin-top:.125rem}
+.dp{min-height:100dvh;display:flex;flex-direction:column;background:var(--bg)}
+.dp-top{padding:1rem 1.25rem 0;width:100%;max-width:800px;margin:0 auto}
+.dp-body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:1.5rem 1.25rem 2rem;width:100%;max-width:800px;margin:0 auto;gap:.5rem}
+.dp .card{background:transparent;border:none;box-shadow:none;padding:0;border-radius:0;border-left:none;margin:0}
+.dp .card.card-ok{background:var(--ok-bg);border-radius:24px;padding:1.5rem;margin:-.5rem;margin-bottom:0}
+.dp .card.card-err{background:var(--err-bg);border-radius:24px;padding:1.5rem;margin:-.5rem;margin-bottom:0}
+.dp .serif{font-size:1.75rem;line-height:1.45;color:#F2F2F2;font-weight:700}
+.dp .sub{font-size:1.375rem;line-height:1.5;margin-top:.75rem;color:#CCCCCC;font-weight:500}
+@media(prefers-color-scheme:light){.dp .serif{color:#1A1A1A}.dp .sub{color:#555}}
+:root[data-theme="light"] .dp .serif{color:#1A1A1A}
+:root[data-theme="light"] .dp .sub{color:#555}
+.dp .field{font-size:clamp(1.25rem,3vw,1.5rem);padding:1.125rem 1.25rem;border-radius:18px;margin-top:1.25rem}
+.dp .keys{gap:10px;margin:.75rem 0;justify-content:center}
+.dp .key{min-width:48px;height:48px;font-size:1.25rem;border-radius:14px}
+.dp .keys-toggle{background:none;border:none;color:var(--text-dim);font-size:.875rem;cursor:pointer;padding:.5rem;margin-top:.5rem;-webkit-tap-highlight-color:transparent}
+.dp .keys-toggle:hover{color:var(--text)}
+.dp .btn{padding:1.125rem;font-size:clamp(1.0625rem,2.5vw,1.25rem);border-radius:50px}
+.dp .fb{padding:1.25rem 1.375rem;border-radius:20px;font-size:clamp(1rem,2.5vw,1.1875rem);margin-top:1.5rem}
+.dp .fb-head{font-size:clamp(1.0625rem,2.5vw,1.25rem)}
+.dp .fb-answer{font-size:clamp(1.0625rem,2.5vw,1.25rem)}
+.dp .prog-track{height:3px;border-radius:2px}
+.dp-count{font-size:.875rem;color:var(--text-dim);font-variant-numeric:tabular-nums}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-5px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.015)}100%{transform:scale(1)}}
+.shake{animation:shake .35s ease}
+.pop{animation:pop .3s ease}
+@media(prefers-reduced-motion:reduce){.shake,.pop{animation:none}.prog-fill{transition:none}}
+.hw-prog{display:flex;align-items:center;gap:.5rem;justify-content:center;margin-top:.375rem}
+.hw-prog-dots{display:flex;gap:4px}
+.hw-prog-dot{width:8px;height:8px;border-radius:50%;background:var(--line);transition:background .2s}
+.hw-prog-dot.done{background:var(--ok)}
+.hw-prog-dot.active{background:var(--accent)}
+.hw-entry-label{font-size:.875rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);margin-bottom:.75rem}
+.conj-row{display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem}
+.conj-label{font-weight:600;font-size:1rem;min-width:5.5rem;text-align:right;color:var(--text-dim);font-family:Georgia,"Times New Roman",serif}
+.conj-input{flex:1}
+.conj-result{display:flex;align-items:center;gap:.5rem;margin-top:.25rem;font-size:.875rem}
+.conj-correct{color:var(--ok);font-weight:600}
+.conj-wrong{color:var(--err)}
+.conj-answer{font-weight:600;font-family:Georgia,serif}
+.hw-form-row{margin-bottom:1rem}
+.hw-form-label{font-size:.875rem;font-weight:600;color:var(--text-dim);margin-bottom:.375rem;display:block}
+.hw-summary-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1rem;margin-bottom:.75rem}
+.hw-summary-word{font-family:Georgia,serif;font-weight:700;font-size:1.125rem;margin-bottom:.5rem}
+.hw-summary-row{display:flex;justify-content:space-between;font-size:.875rem;padding:.25rem 0;border-bottom:1px solid var(--line)}
+.hw-summary-row:last-child{border-bottom:none}
+.streak-badge{display:inline-flex;align-items:center;gap:.375rem;font-size:.875rem;font-weight:700;color:var(--warn);padding:.25rem .75rem;background:var(--warn-bg);border:1px solid var(--warn-border);border-radius:99px}
+.hw-history{margin-top:1rem;text-align:left;width:100%}
+.hw-history-title{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);margin-bottom:.5rem}
+.hw-history-row{display:flex;justify-content:space-between;align-items:center;padding:.5rem .75rem;border-bottom:1px solid var(--line);font-size:.875rem}
+.hw-history-row:last-child{border-bottom:none}
+.hw-history-date{color:var(--text-dim)}
+.hw-history-score{font-weight:700;font-variant-numeric:tabular-nums}
+.hw-history-bar{flex:1;margin:0 .75rem;height:4px;background:var(--bar-track);border-radius:2px;overflow:hidden}
+.hw-history-fill{height:100%;border-radius:2px}
+.res-score{font-family:Georgia,serif;font-size:3rem;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+.res-msg{font-size:1.125rem;color:var(--text-dim);margin-bottom:1.5rem}
+.auth-logo{font-size:2rem;margin-bottom:.25rem}
+.auth-title{font-family:Georgia,serif;font-size:1.5rem;font-weight:700;margin-bottom:.25rem}
+.auth-sub{color:var(--text-dim);font-size:.875rem;margin-bottom:1.5rem}
+.form-group{margin-bottom:1rem}
+.form-label{display:block;font-size:.8125rem;font-weight:600;margin-bottom:.375rem;color:var(--text-dim)}
+.form-help{font-size:.75rem;color:var(--text-dim);margin-top:.25rem}
+.error-msg{color:var(--err);font-size:.875rem;font-weight:500;margin-bottom:.75rem}
+.checkbox-row{display:flex;align-items:center;gap:.5rem;font-size:.875rem;margin:.75rem 0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.checkbox-row input{width:18px;height:18px;accent-color:var(--accent)}
+.spin{display:inline-block;width:18px;height:18px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.err-bar{height:6px;border-radius:3px;background:var(--bar-track);overflow:hidden;margin-top:.25rem}
+.err-bar-fill{height:100%;border-radius:3px;background:var(--err);transition:width .3s}
+.srs-badge{display:inline-block;font-size:.6875rem;font-weight:600;padding:.125rem .5rem;border-radius:99px}
+.srs-new{background:var(--accent-faint);color:var(--accent)}
+.srs-due{background:var(--err-bg);color:var(--err);border:1px solid var(--err-border)}
+.srs-ok{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-border)}
+</style>
+</head>
+<body>
+<div id="app"><div class="wrap center" style="padding-top:40vh"><div class="spin"></div></div></div>
+<script>
+'use strict';
+
+/* ═══════════════════════════════════════════════════════════════
+   CONFIG
+   ═══════════════════════════════════════════════════════════════ */
+
+const CFG = { owner: 'syedalimoiz', repo: 'french-drills-v2' };
+const ACCENTS = ['é','è','ê','ë','à','â','î','ï','ô','ù','û','ç'];
+
+/* ═══════════════════════════════════════════════════════════════
+   WORD BANK — 14 progressive sets, 126 words, 252 sentences
+   ═══════════════════════════════════════════════════════════════ */
+
+const HW_BANK = [
+  { verbs: [{w:'parler',m:'to speak'},{w:'aimer',m:'to like/love'},{w:'donner',m:'to give'}],
+    nouns: [{w:'chat',g:'m',m:'cat'},{w:'maison',g:'f',m:'house'},{w:'livre',g:'m',m:'book'}],
+    adj: [{w:'grand',m:'big/tall'},{w:'petit',m:'small'},{w:'content',m:'happy'}],
+    sentences: {
+      verbs: [{en:'He speaks',fr:'il parle'},{en:'You (plural) speak',fr:'vous parlez'},{en:'I like a cat',fr:"j'aime un chat"},{en:'She likes a house',fr:'elle aime une maison'},{en:'We give a book',fr:'nous donnons un livre'},{en:'They give a cat',fr:'ils donnent un chat'}],
+      nouns: [{en:'a big cat',fr:'un grand chat'},{en:'a small cat',fr:'un petit chat'},{en:'a big house',fr:'une grande maison'},{en:'a small house',fr:'une petite maison'},{en:'a big book',fr:'un grand livre'},{en:'a happy book',fr:'un livre content'}],
+      adj: [{en:'a big house',fr:'une grande maison'},{en:'big cats',fr:'de grands chats'},{en:'a small book',fr:'un petit livre'},{en:'small houses',fr:'de petites maisons'},{en:'a happy cat',fr:'un chat content'},{en:'happy books',fr:'des livres contents'}]
+    } },
+  { verbs: [{w:'chanter',m:'to sing'},{w:'trouver',m:'to find'},{w:'marcher',m:'to walk'}],
+    nouns: [{w:'table',g:'f',m:'table'},{w:'garçon',g:'m',m:'boy'},{w:'fille',g:'f',m:'girl'}],
+    adj: [{w:'fort',m:'strong'},{w:'intelligent',m:'smart'},{w:'blond',m:'blonde'}],
+    sentences: {
+      verbs: [{en:'We sing',fr:'nous chantons'},{en:'You (informal) sing',fr:'tu chantes'},{en:'I find a table',fr:'je trouve une table'},{en:'She finds a boy',fr:'elle trouve un garçon'},{en:'He walks',fr:'il marche'},{en:'They walk',fr:'ils marchent'}],
+      nouns: [{en:'a strong table',fr:'une table forte'},{en:'a smart table',fr:'une table intelligente'},{en:'a strong boy',fr:'un garçon fort'},{en:'a blond boy',fr:'un garçon blond'},{en:'a smart girl',fr:'une fille intelligente'},{en:'a blonde girl',fr:'une fille blonde'}],
+      adj: [{en:'a strong boy',fr:'un garçon fort'},{en:'strong girls',fr:'des filles fortes'},{en:'a smart girl',fr:'une fille intelligente'},{en:'smart boys',fr:'des garçons intelligents'},{en:'a blond boy',fr:'un garçon blond'},{en:'blonde girls',fr:'des filles blondes'}]
+    } },
+  { verbs: [{w:'regarder',m:'to watch'},{w:'écouter',m:'to listen'},{w:'fermer',m:'to close'}],
+    nouns: [{w:'porte',g:'f',m:'door'},{w:'ami',g:'m',m:'friend'},{w:'école',g:'f',m:'school'}],
+    adj: [{w:'joli',m:'pretty'},{w:'important',m:'important'},{w:'français',m:'French'}],
+    sentences: {
+      verbs: [{en:'I watch a friend',fr:'je regarde un ami'},{en:'She watches a school',fr:'elle regarde une école'},{en:'We listen to a friend',fr:'nous écoutons un ami'},{en:'You (plural) listen to a door',fr:'vous écoutez une porte'},{en:'He closes a door',fr:'il ferme une porte'},{en:'They close a school',fr:'ils ferment une école'}],
+      nouns: [{en:'a pretty door',fr:'une jolie porte'},{en:'a French door',fr:'une porte française'},{en:'a pretty friend',fr:'un joli ami'},{en:'an important friend',fr:'un ami important'},{en:'an important school',fr:'une école importante'},{en:'a French school',fr:'une école française'}],
+      adj: [{en:'a pretty door',fr:'une jolie porte'},{en:'pretty friends',fr:'de jolis amis'},{en:'an important school',fr:'une école importante'},{en:'important doors',fr:'des portes importantes'},{en:'a French friend',fr:'un ami français'},{en:'French schools',fr:'des écoles françaises'}]
+    } },
+  { verbs: [{w:'chercher',m:'to look for'},{w:'montrer',m:'to show'},{w:'porter',m:'to carry/wear'}],
+    nouns: [{w:'jardin',g:'m',m:'garden'},{w:'chambre',g:'f',m:'bedroom'},{w:'animal',g:'m',m:'animal'}],
+    adj: [{w:'nouveau',m:'new'},{w:'beau',m:'beautiful'},{w:'long',m:'long'}],
+    sentences: {
+      verbs: [{en:'I look for a garden',fr:'je cherche un jardin'},{en:'She looks for a bedroom',fr:'elle cherche une chambre'},{en:'We show an animal',fr:'nous montrons un animal'},{en:'You (informal) show a garden',fr:'tu montres un jardin'},{en:'He carries an animal',fr:'il porte un animal'},{en:'You (plural) carry a bedroom',fr:'vous portez une chambre'}],
+      nouns: [{en:'a new garden',fr:'un nouveau jardin'},{en:'a beautiful garden',fr:'un beau jardin'},{en:'a new bedroom',fr:'une nouvelle chambre'},{en:'a beautiful bedroom',fr:'une belle chambre'},{en:'a new animal',fr:'un nouvel animal'},{en:'a long animal',fr:'un long animal'}],
+      adj: [{en:'a new bedroom',fr:'une nouvelle chambre'},{en:'new gardens',fr:'de nouveaux jardins'},{en:'a beautiful animal',fr:'un bel animal'},{en:'beautiful bedrooms',fr:'de belles chambres'},{en:'a long garden',fr:'un long jardin'},{en:'long animals',fr:'de longs animaux'}]
+    } },
+  { verbs: [{w:'jouer',m:'to play'},{w:'habiter',m:'to live (in)'},{w:'arriver',m:'to arrive'}],
+    nouns: [{w:'chapeau',g:'m',m:'hat'},{w:'oiseau',g:'m',m:'bird'},{w:'chanson',g:'f',m:'song'}],
+    adj: [{w:'vieux',m:'old'},{w:'blanc',m:'white'},{w:'gros',m:'big/fat'}],
+    sentences: {
+      verbs: [{en:'I play a song',fr:'je joue une chanson'},{en:'They play a song',fr:'ils jouent une chanson'},{en:'She lives',fr:'elle habite'},{en:'You (plural) live',fr:'vous habitez'},{en:'He arrives',fr:'il arrive'},{en:'We arrive',fr:'nous arrivons'}],
+      nouns: [{en:'an old hat',fr:'un vieux chapeau'},{en:'a big hat',fr:'un gros chapeau'},{en:'an old bird',fr:'un vieil oiseau'},{en:'a white bird',fr:'un oiseau blanc'},{en:'a big song',fr:'une grosse chanson'},{en:'a white song',fr:'une chanson blanche'}],
+      adj: [{en:'an old hat',fr:'un vieux chapeau'},{en:'old birds',fr:'de vieux oiseaux'},{en:'a white bird',fr:'un oiseau blanc'},{en:'white songs',fr:'des chansons blanches'},{en:'a big song',fr:'une grosse chanson'},{en:'big hats',fr:'de gros chapeaux'}]
+    } },
+  { verbs: [{w:'manger',m:'to eat'},{w:'commencer',m:'to begin'},{w:'danser',m:'to dance'}],
+    nouns: [{w:'pays',g:'m',m:'country'},{w:'voix',g:'f',m:'voice'},{w:'nez',g:'m',m:'nose'}],
+    adj: [{w:'heureux',m:'happy'},{w:'doux',m:'sweet/soft'},{w:'actif',m:'active'}],
+    sentences: {
+      verbs: [{en:'We eat',fr:'nous mangeons'},{en:'They eat',fr:'ils mangent'},{en:'I begin',fr:'je commence'},{en:'She begins',fr:'elle commence'},{en:'He dances',fr:'il danse'},{en:'You (informal) dance',fr:'tu danses'}],
+      nouns: [{en:'a happy country',fr:'un pays heureux'},{en:'a sweet country',fr:'un pays doux'},{en:'a sweet voice',fr:'une voix douce'},{en:'an active voice',fr:'une voix active'},{en:'an active nose',fr:'un nez actif'},{en:'a happy nose',fr:'un nez heureux'}],
+      adj: [{en:'a happy country',fr:'un pays heureux'},{en:'happy noses',fr:'des nez heureux'},{en:'a sweet voice',fr:'une voix douce'},{en:'sweet countries',fr:'des pays doux'},{en:'an active nose',fr:'un nez actif'},{en:'active voices',fr:'des voix actives'}]
+    } },
+  { verbs: [{w:'voyager',m:'to travel'},{w:'placer',m:'to place'},{w:'nager',m:'to swim'}],
+    nouns: [{w:'journal',g:'m',m:'newspaper'},{w:'bateau',g:'m',m:'boat'},{w:'fleur',g:'f',m:'flower'}],
+    adj: [{w:'gentil',m:'kind'},{w:'favori',m:'favorite'},{w:'frais',m:'fresh/cool'}],
+    sentences: {
+      verbs: [{en:'We travel',fr:'nous voyageons'},{en:'I travel',fr:'je voyage'},{en:'She places a newspaper',fr:'elle place un journal'},{en:'You (plural) place a flower',fr:'vous placez une fleur'},{en:'He swims',fr:'il nage'},{en:'They swim',fr:'ils nagent'}],
+      nouns: [{en:'a kind newspaper',fr:'un journal gentil'},{en:'a favorite newspaper',fr:'un journal favori'},{en:'a kind boat',fr:'un bateau gentil'},{en:'a fresh boat',fr:'un bateau frais'},{en:'a favorite flower',fr:'une fleur favorite'},{en:'a fresh flower',fr:'une fleur fraîche'}],
+      adj: [{en:'a kind flower',fr:'une fleur gentille'},{en:'kind boats',fr:'des bateaux gentils'},{en:'a favorite newspaper',fr:'un journal favori'},{en:'favorite flowers',fr:'des fleurs favorites'},{en:'a fresh boat',fr:'un bateau frais'},{en:'fresh flowers',fr:'des fleurs fraîches'}]
+    } },
+  { verbs: [{w:'préparer',m:'to prepare'},{w:'adorer',m:'to adore'},{w:'détester',m:'to hate'}],
+    nouns: [{w:'cuisine',g:'f',m:'kitchen'},{w:'repas',g:'m',m:'meal'},{w:'enfant',g:'m',m:'child'}],
+    adj: [{w:'bon',m:'good'},{w:'mauvais',m:'bad'},{w:'jeune',m:'young'}],
+    sentences: {
+      verbs: [{en:'I prepare a meal',fr:'je prépare un repas'},{en:'She prepares a kitchen',fr:'elle prépare une cuisine'},{en:'I adore a child',fr:"j'adore un enfant"},{en:'We adore a meal',fr:'nous adorons un repas'},{en:'He hates a kitchen',fr:'il déteste une cuisine'},{en:'They hate a child',fr:'ils détestent un enfant'}],
+      nouns: [{en:'a good kitchen',fr:'une bonne cuisine'},{en:'a bad kitchen',fr:'une mauvaise cuisine'},{en:'a good meal',fr:'un bon repas'},{en:'a young meal',fr:'un jeune repas'},{en:'a young child',fr:'un jeune enfant'},{en:'a bad child',fr:'un mauvais enfant'}],
+      adj: [{en:'a good meal',fr:'un bon repas'},{en:'good children',fr:'de bons enfants'},{en:'a bad kitchen',fr:'une mauvaise cuisine'},{en:'bad meals',fr:'de mauvais repas'},{en:'a young child',fr:'un jeune enfant'},{en:'young kitchens',fr:'de jeunes cuisines'}]
+    } },
+  { verbs: [{w:'inviter',m:'to invite'},{w:'passer',m:'to pass/spend'},{w:'dessiner',m:'to draw'}],
+    nouns: [{w:'rue',g:'f',m:'street'},{w:'magasin',g:'m',m:'shop'},{w:'fenêtre',g:'f',m:'window'}],
+    adj: [{w:'léger',m:'light'},{w:'dernier',m:'last'},{w:'premier',m:'first'}],
+    sentences: {
+      verbs: [{en:'We invite',fr:'nous invitons'},{en:'She invites',fr:'elle invite'},{en:'He passes a street',fr:'il passe une rue'},{en:'They pass a shop',fr:'ils passent un magasin'},{en:'I draw a window',fr:'je dessine une fenêtre'},{en:'You (informal) draw a street',fr:'tu dessines une rue'}],
+      nouns: [{en:'a last street',fr:'une dernière rue'},{en:'a light street',fr:'une rue légère'},{en:'a first shop',fr:'un premier magasin'},{en:'a last shop',fr:'un dernier magasin'},{en:'a first window',fr:'une première fenêtre'},{en:'a light window',fr:'une fenêtre légère'}],
+      adj: [{en:'a light window',fr:'une fenêtre légère'},{en:'light streets',fr:'des rues légères'},{en:'a last street',fr:'une dernière rue'},{en:'last shops',fr:'de derniers magasins'},{en:'a first shop',fr:'un premier magasin'},{en:'first windows',fr:'de premières fenêtres'}]
+    } },
+  { verbs: [{w:'laver',m:'to wash'},{w:'couper',m:'to cut'},{w:'tomber',m:'to fall'}],
+    nouns: [{w:'couleur',g:'f',m:'color'},{w:'mur',g:'m',m:'wall'},{w:'clé',g:'f',m:'key'}],
+    adj: [{w:'naturel',m:'natural'},{w:'cruel',m:'cruel'},{w:'ancien',m:'old/former'}],
+    sentences: {
+      verbs: [{en:'I wash a wall',fr:'je lave un mur'},{en:'She washes a key',fr:'elle lave une clé'},{en:'We cut a key',fr:'nous coupons une clé'},{en:'He cuts a wall',fr:'il coupe un mur'},{en:'They fall',fr:'ils tombent'},{en:'You (informal) fall',fr:'tu tombes'}],
+      nouns: [{en:'a natural color',fr:'une couleur naturelle'},{en:'a cruel color',fr:'une couleur cruelle'},{en:'a natural wall',fr:'un mur naturel'},{en:'an old wall',fr:'un mur ancien'},{en:'an old key',fr:'une clé ancienne'},{en:'a cruel key',fr:'une clé cruelle'}],
+      adj: [{en:'a natural wall',fr:'un mur naturel'},{en:'natural colors',fr:'des couleurs naturelles'},{en:'a cruel color',fr:'une couleur cruelle'},{en:'cruel walls',fr:'des murs cruels'},{en:'an old key',fr:'une clé ancienne'},{en:'old colors',fr:'des couleurs anciennes'}]
+    } },
+  { verbs: [{w:'lancer',m:'to throw'},{w:'ranger',m:'to tidy'},{w:'effacer',m:'to erase'}],
+    nouns: [{w:'gâteau',g:'m',m:'cake'},{w:'cadeau',g:'m',m:'gift'},{w:'ville',g:'f',m:'city'}],
+    adj: [{w:'faux',m:'false'},{w:'roux',m:'red-haired'},{w:'sec',m:'dry'}],
+    sentences: {
+      verbs: [{en:'We throw a cake',fr:'nous lançons un gâteau'},{en:'I throw a gift',fr:'je lance un cadeau'},{en:'We tidy a city',fr:'nous rangeons une ville'},{en:'She tidies a cake',fr:'elle range un gâteau'},{en:'I erase a gift',fr:"j'efface un cadeau"},{en:'You (plural) erase a city',fr:'vous effacez une ville'}],
+      nouns: [{en:'a false cake',fr:'un gâteau faux'},{en:'a reddish cake',fr:'un gâteau roux'},{en:'a dry gift',fr:'un cadeau sec'},{en:'a false gift',fr:'un cadeau faux'},{en:'a reddish city',fr:'une ville rousse'},{en:'a dry city',fr:'une ville sèche'}],
+      adj: [{en:'a false cake',fr:'un gâteau faux'},{en:'false cities',fr:'des villes fausses'},{en:'a reddish gift',fr:'un cadeau roux'},{en:'reddish cakes',fr:'des gâteaux roux'},{en:'a dry city',fr:'une ville sèche'},{en:'dry gifts',fr:'des cadeaux secs'}]
+    } },
+  { verbs: [{w:'partager',m:'to share'},{w:'avancer',m:'to advance'},{w:'plonger',m:'to dive'}],
+    nouns: [{w:'hôpital',g:'m',m:'hospital'},{w:'château',g:'m',m:'castle'},{w:'personne',g:'f',m:'person'}],
+    adj: [{w:'public',m:'public'},{w:'violet',m:'purple'},{w:'muet',m:'mute/silent'}],
+    sentences: {
+      verbs: [{en:'We share a hospital',fr:'nous partageons un hôpital'},{en:'I share a castle',fr:'je partage un château'},{en:'She advances',fr:'elle avance'},{en:'They advance',fr:'ils avancent'},{en:'He dives',fr:'il plonge'},{en:'We dive',fr:'nous plongeons'}],
+      nouns: [{en:'a public hospital',fr:'un hôpital public'},{en:'a purple hospital',fr:'un hôpital violet'},{en:'a public castle',fr:'un château public'},{en:'a mute castle',fr:'un château muet'},{en:'a mute person',fr:'une personne muette'},{en:'a purple person',fr:'une personne violette'}],
+      adj: [{en:'a public castle',fr:'un château public'},{en:'public hospitals',fr:'des hôpitaux publics'},{en:'a purple person',fr:'une personne violette'},{en:'purple castles',fr:'des châteaux violets'},{en:'a mute person',fr:'une personne muette'},{en:'mute hospitals',fr:'des hôpitaux muets'}]
+    } },
+  { verbs: [{w:'corriger',m:'to correct'},{w:'forcer',m:'to force'},{w:'tracer',m:'to trace/draw'}],
+    nouns: [{w:'rideau',g:'m',m:'curtain'},{w:'tableau',g:'m',m:'board/painting'},{w:'canal',g:'m',m:'canal'}],
+    adj: [{w:'net',m:'clean/clear'},{w:'direct',m:'direct'},{w:'correct',m:'correct'}],
+    sentences: {
+      verbs: [{en:'We correct a painting',fr:'nous corrigeons un tableau'},{en:'I correct a canal',fr:'je corrige un canal'},{en:'She forces a curtain',fr:'elle force un rideau'},{en:'You (plural) force a canal',fr:'vous forcez un canal'},{en:'He traces a painting',fr:'il trace un tableau'},{en:'They trace a curtain',fr:'ils tracent un rideau'}],
+      nouns: [{en:'a clean curtain',fr:'un rideau net'},{en:'a direct curtain',fr:'un rideau direct'},{en:'a clean painting',fr:'un tableau net'},{en:'a correct painting',fr:'un tableau correct'},{en:'a direct canal',fr:'un canal direct'},{en:'a correct canal',fr:'un canal correct'}],
+      adj: [{en:'a clean curtain',fr:'un rideau net'},{en:'clean paintings',fr:'des tableaux nets'},{en:'a direct canal',fr:'un canal direct'},{en:'direct curtains',fr:'des rideaux directs'},{en:'a correct painting',fr:'un tableau correct'},{en:'correct canals',fr:'des canaux corrects'}]
+    } },
+  { verbs: [{w:'annoncer',m:'to announce'},{w:'déplacer',m:'to move'},{w:'encourager',m:'to encourage'}],
+    nouns: [{w:'noyau',g:'m',m:'pit/core'},{w:'tuyau',g:'m',m:'pipe'},{w:'métal',g:'m',m:'metal'}],
+    adj: [{w:'loyal',m:'loyal'},{w:'normal',m:'normal'},{w:'original',m:'original'}],
+    sentences: {
+      verbs: [{en:'We announce a metal',fr:'nous annonçons un métal'},{en:'I announce a pipe',fr:"j'annonce un tuyau"},{en:'She moves a pipe',fr:'elle déplace un tuyau'},{en:'You (plural) move a core',fr:'vous déplacez un noyau'},{en:'We encourage a core',fr:'nous encourageons un noyau'},{en:'He encourages a metal',fr:'il encourage un métal'}],
+      nouns: [{en:'a loyal core',fr:'un noyau loyal'},{en:'a normal core',fr:'un noyau normal'},{en:'a normal pipe',fr:'un tuyau normal'},{en:'an original pipe',fr:'un tuyau original'},{en:'an original metal',fr:'un métal original'},{en:'a loyal metal',fr:'un métal loyal'}],
+      adj: [{en:'a loyal core',fr:'un noyau loyal'},{en:'loyal metals',fr:'des métaux loyaux'},{en:'a normal pipe',fr:'un tuyau normal'},{en:'normal cores',fr:'des noyaux normaux'},{en:'an original metal',fr:'un métal original'},{en:'original pipes',fr:'des tuyaux originaux'}]
+    } },
+];
+
+
+/* ═══════════════════════════════════════════════════════════════
+   WORD INDEX — flat list built from HW_BANK
+   ═══════════════════════════════════════════════════════════════ */
+
+const ALL_WORDS = (function() {
+  const words = [];
+  HW_BANK.forEach(function(set, si) {
+    set.verbs.forEach(function(v, wi) {
+      words.push({ id:'v-'+si+'-'+wi, type:'verb', word:v.w, meaning:v.m, setIdx:si, wordIdx:wi,
+        sentences: [set.sentences.verbs[wi*2], set.sentences.verbs[wi*2+1]] });
+    });
+    set.nouns.forEach(function(n, wi) {
+      words.push({ id:'n-'+si+'-'+wi, type:'noun', word:n.w, gender:n.g, meaning:n.m, setIdx:si, wordIdx:wi,
+        sentences: [set.sentences.nouns[wi*2], set.sentences.nouns[wi*2+1]] });
+    });
+    set.adj.forEach(function(a, wi) {
+      words.push({ id:'a-'+si+'-'+wi, type:'adj', word:a.w, meaning:a.m, setIdx:si, wordIdx:wi,
+        sentences: [set.sentences.adj[wi*2], set.sentences.adj[wi*2+1]] });
+    });
+  });
+  return words;
+})();
+
+const WORD_MAP = {};
+ALL_WORDS.forEach(function(w) { WORD_MAP[w.id] = w; });
+
+
+/* ═══════════════════════════════════════════════════════════════
+   CRYPTO — AES-256-GCM password encryption for PAT
+   ═══════════════════════════════════════════════════════════════ */
+
+const Cry = {
+  async deriveKey(pw, salt) {
+    const raw = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
+    return crypto.subtle.deriveKey({ name:'PBKDF2', salt, iterations:100000, hash:'SHA-256' }, raw, { name:'AES-GCM', length:256 }, false, ['encrypt','decrypt']);
+  },
+  async encrypt(pw, text) {
+    const salt = crypto.getRandomValues(new Uint8Array(16));
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+    const key = await this.deriveKey(pw, salt);
+    const enc = await crypto.subtle.encrypt({ name:'AES-GCM', iv }, key, new TextEncoder().encode(text));
+    return { s: this.b64(salt), i: this.b64(iv), d: this.b64(new Uint8Array(enc)) };
+  },
+  async decrypt(pw, bundle) {
+    const salt = this.unb64(bundle.s), iv = this.unb64(bundle.i), data = this.unb64(bundle.d);
+    const key = await this.deriveKey(pw, salt);
+    const dec = await crypto.subtle.decrypt({ name:'AES-GCM', iv }, key, data);
+    return new TextDecoder().decode(dec);
+  },
+  b64(u8) { return btoa(String.fromCharCode.apply(null, u8)); },
+  unb64(s) { return new Uint8Array(atob(s).split('').map(function(c){return c.charCodeAt(0);})); }
+};
+
+
+/* ═══════════════════════════════════════════════════════════════
+   GITHUB API
+   ═══════════════════════════════════════════════════════════════ */
+
+class GH {
+  constructor(token) { this.token = token; this.api = 'https://api.github.com/repos/'+CFG.owner+'/'+CFG.repo+'/contents'; this.shas = {}; }
+  headers() { var h = {'Accept':'application/vnd.github.v3+json'}; if (this.token) h['Authorization'] = 'Bearer '+this.token; return h; }
+  encodePath(path) { return path.split('/').map(function(s){return encodeURIComponent(s);}).join('/'); }
+  async get(path) {
+    var r = await fetch(this.api+'/'+this.encodePath(path), {headers:this.headers()});
+    if (r.status === 404) return null;
+    if (!r.ok) throw new Error('GitHub '+r.status+': '+(await r.json()).message);
+    var d = await r.json(); this.shas[path] = d.sha;
+    var bin = atob(d.content.replace(/\n/g, ''));
+    return new TextDecoder().decode(new Uint8Array([].map.call(bin, function(c){return c.charCodeAt(0);})));
+  }
+  async put(path, content, msg) {
+    var bytes = new TextEncoder().encode(content);
+    var b64 = btoa(String.fromCharCode.apply(null, bytes));
+    var body = { message:msg, content:b64 };
+    if (this.shas[path]) body.sha = this.shas[path];
+    var r = await fetch(this.api+'/'+this.encodePath(path), { method:'PUT', headers:Object.assign({},this.headers(),{'Content-Type':'application/json'}), body:JSON.stringify(body) });
+    if (!r.ok) {
+      var e = await r.json();
+      if (r.status === 409 && !this.shas[path]) { await this.get(path); return this.put(path, content, msg); }
+      throw new Error('GitHub '+r.status+': '+e.message);
+    }
+    var d = await r.json(); this.shas[path] = d.content.sha;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   FRENCH LANGUAGE ENGINE
+   ═══════════════════════════════════════════════════════════════ */
+
+const PRONOUNS = ['je','tu','il/elle/on','nous','vous','ils/elles'];
+const IRREG_FEM = {
+  'beau':'belle','nouveau':'nouvelle','vieux':'vieille',
+  'blanc':'blanche','doux':'douce','faux':'fausse',
+  'long':'longue','gros':'grosse','gentil':'gentille',
+  'frais':'fraîche','roux':'rousse','favori':'favorite',
+  'public':'publique','sec':'sèche','grec':'grecque'
+};
+
+const French = {
+  conjugateER(inf) {
+    var stem = inf.slice(0,-2), isGer = inf.endsWith('ger'), isCer = inf.endsWith('cer');
+    var endings = ['e','es','e','ons','ez','ent'], forms = {};
+    PRONOUNS.forEach(function(p, i) {
+      var s = stem;
+      if (i === 3 && isGer) s = stem + 'e';
+      if (i === 3 && isCer) s = stem.slice(0,-1) + 'ç';
+      forms[p] = s + endings[i];
+    });
+    return forms;
+  },
+  pluralNoun(noun) {
+    var n = noun.trim().toLowerCase();
+    if (/[sxz]$/.test(n)) return n;
+    if (/eau$/.test(n) || /au$/.test(n)) return n + 'x';
+    if (n.endsWith('al')) return n.slice(0,-2) + 'aux';
+    return n + 's';
+  },
+  feminizeAdj(adj) {
+    var a = adj.trim().toLowerCase();
+    if (IRREG_FEM[a]) return IRREG_FEM[a];
+    if (a.endsWith('e') && !a.endsWith('é')) return a;
+    if (a.endsWith('eux')) return a.slice(0,-3) + 'euse';
+    if (a.endsWith('oux')) return a.slice(0,-3) + 'ouse';
+    if (a.endsWith('if')) return a.slice(0,-2) + 'ive';
+    if (a.endsWith('er')) return a.slice(0,-2) + 'ère';
+    if (/(?:el|eil)$/.test(a)) return a + 'le';
+    if (/(?:ien|en)$/.test(a)) return a + 'ne';
+    if (a.endsWith('on')) return a + 'ne';
+    if (a.endsWith('et')) return a + 'te';
+    return a + 'e';
+  },
+  pluralAdj(adj) {
+    var a = adj.trim().toLowerCase();
+    if (/[sx]$/.test(a)) return a;
+    if (a.endsWith('eau')) return a + 'x';
+    if (a.endsWith('al')) return a.slice(0,-2) + 'aux';
+    return a + 's';
+  }
+};
+
+
+/* ═══════════════════════════════════════════════════════════════
+   SRS ENGINE — SM-2 spaced repetition per word
+   ═══════════════════════════════════════════════════════════════ */
+
+const SRS = {
+  defaultCard(type) {
+    var errors;
+    if (type === 'verb') errors = {je:0,tu:0,il:0,nous:0,vous:0,ils:0,sentence:0};
+    else if (type === 'noun') errors = {article:0,plural:0,sentence:0};
+    else errors = {feminine:0,mascPlural:0,femPlural:0,sentence:0};
+    return {ef:2.5, interval:0, reps:0, nextReview:null, lastReview:null, errors:errors};
+  },
+
+  update(card, grade) {
+    var today = todayStr();
+    card.lastReview = today;
+    if (grade >= 3) {
+      if (card.reps === 0) card.interval = 1;
+      else if (card.reps === 1) card.interval = 3;
+      else card.interval = Math.round(card.interval * card.ef);
+      card.ef = Math.max(1.3, card.ef + 0.1 - (5-grade) * (0.08 + (5-grade)*0.02));
+      card.reps++;
+    } else {
+      card.reps = 0;
+      card.interval = 1;
+    }
+    var d = new Date(today + 'T00:00:00');
+    d.setDate(d.getDate() + card.interval);
+    card.nextReview = d.toISOString().slice(0,10);
+    return card;
+  },
+
+  isDue(card) {
+    if (!card.nextReview) return true;
+    return card.nextReview <= todayStr();
+  },
+
+  daysOverdue(card) {
+    if (!card.nextReview) return 999;
+    var diff = Math.floor((new Date(todayStr()+'T00:00:00') - new Date(card.nextReview+'T00:00:00')) / 86400000);
+    return Math.max(0, diff);
+  },
+
+  errorWeight(card) {
+    if (!card.errors) return 0;
+    var sum = 0;
+    for (var k in card.errors) sum += card.errors[k];
+    return sum;
+  },
+
+  gradeFromPct(pct) {
+    if (pct >= 1.0) return 5;
+    if (pct >= 0.8) return 4;
+    if (pct >= 0.6) return 3;
+    if (pct >= 0.4) return 2;
+    if (pct >= 0.2) return 1;
+    return 0;
+  }
+};
+
+
+/* ═══════════════════════════════════════════════════════════════
+   PROGRESS + CARD ACCESS
+   ═══════════════════════════════════════════════════════════════ */
+
+function defaultProgress() {
+  return { v:2, updated:null, srs:{}, hw:{}, stats:{questions:0,correct:0,streak:0,best:0,lastDate:null} };
+}
+
+function getCard(wordId) {
+  if (!S.progress.srs[wordId]) {
+    var w = WORD_MAP[wordId];
+    var type = w ? w.type : 'verb';
+    S.progress.srs[wordId] = SRS.defaultCard(type);
+  }
+  return S.progress.srs[wordId];
+}
+
+function setCard(wordId, card) { S.progress.srs[wordId] = card; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   SESSION BUILDER — adaptive word selection
+   ═══════════════════════════════════════════════════════════════ */
+
+function shuffle(arr) {
+  for (var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=arr[i];arr[i]=arr[j];arr[j]=t;}
+  return arr;
+}
+
+function pickWords(type, count) {
+  var words = ALL_WORDS.filter(function(w){return w.type === type;});
+  var due = [], fresh = [];
+  for (var i=0; i<words.length; i++) {
+    var w = words[i], card = getCard(w.id);
+    if (!card.lastReview) fresh.push(w);
+    else if (SRS.isDue(card)) due.push(w);
+  }
+  due.sort(function(a,b) {
+    var ca = getCard(a.id), cb = getCard(b.id);
+    return (SRS.daysOverdue(cb) + SRS.errorWeight(cb)) - (SRS.daysOverdue(ca) + SRS.errorWeight(ca));
+  });
+  var result = due.slice(0, count);
+  if (result.length < count) {
+    result = result.concat(fresh.slice(0, count - result.length));
+  }
+  if (result.length < count) {
+    var used = {};
+    result.forEach(function(w){used[w.id]=true;});
+    var rest = words.filter(function(w){return !used[w.id] && getCard(w.id).lastReview && !SRS.isDue(getCard(w.id));});
+    rest.sort(function(a,b){return (getCard(a.id).nextReview||'9999').localeCompare(getCard(b.id).nextReview||'9999');});
+    result = result.concat(rest.slice(0, count - result.length));
+  }
+  return result;
+}
+
+function buildSession() {
+  return { verbs: pickWords('verb',3), nouns: pickWords('noun',3), adj: pickWords('adj',3) };
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   APP STATE
+   ═══════════════════════════════════════════════════════════════ */
+
+const S = {
+  screen: 'loading',
+  gh: null,
+  progress: null,
+  error: null,
+  hwStep: 0,
+  hwSession: null,
+  hwWords: null,
+  hwResults: null,
+  hwChecked: null,
+  hwResponseCount: 0,
+  hwStartTime: null,
+  sessionStartTime: null,
+};
+
+var _hwActiveInput = null;
+var $ = function(id){return document.getElementById(id);};
+var app = function(){return document.getElementById('app');};
+var esc = function(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;};
+
+
+/* ═══════════════════════════════════════════════════════════════
+   HELPERS
+   ═══════════════════════════════════════════════════════════════ */
+
+function todayStr() { return new Date().toISOString().slice(0,10); }
+
+function normApostrophe(s) { return s.replace(/[''ʼ`′]/g, "'"); }
+
+function accentMatch(a, b) {
+  if (a === b) return true;
+  var strip = function(s){return s.normalize('NFD').replace(/[̀-ͯ]/g,'');};
+  return strip(a) === strip(b);
+}
+
+function needsElision(form) { return /^[aeéèêëiîïoôuùûyh]/i.test(form); }
+
+function pronounLabel(pronoun, form) {
+  if (pronoun === 'je' && needsElision(form)) return "j'";
+  return pronoun;
+}
+
+function formatDuration(ms) {
+  var secs = Math.floor(ms/1000);
+  if (secs < 60) return secs + 's';
+  var mins = Math.floor(secs/60); secs = secs % 60;
+  return mins + 'm ' + (secs<10?'0':'') + secs + 's';
+}
+
+function getStreak() {
+  if (!S.progress) return 0;
+  var hw = S.progress.hw || {};
+  var today = todayStr(), streak = 0;
+  var d = new Date(today+'T00:00:00');
+  if (hw[today] && hw[today].complete) { streak = 1; d.setDate(d.getDate()-1); }
+  else { d.setDate(d.getDate()-1); }
+  while (true) {
+    var key = d.toISOString().slice(0,10);
+    if (hw[key] && hw[key].complete) { streak++; d.setDate(d.getDate()-1); }
+    else break;
+  }
+  return streak;
+}
+
+function renderStreakBadge() {
+  var streak = getStreak();
+  if (streak === 0) return '';
+  return '<div class="streak-badge">' + streak + ' day streak</div>';
+}
+
+function hintLevel() {
+  var completed = Object.values(S.progress.hw || {}).filter(function(h){return h.complete;}).length;
+  if (completed <= 4) return 0;
+  if (completed <= 9) return 1;
+  return 2;
+}
+
+function isHWDoneToday() {
+  return S.progress && S.progress.hw && S.progress.hw[todayStr()] && S.progress.hw[todayStr()].complete === true;
+}
+
+function insertCharHW(ch) {
+  if (!_hwActiveInput || _hwActiveInput.disabled) return;
+  var s = _hwActiveInput.selectionStart, e = _hwActiveInput.selectionEnd;
+  _hwActiveInput.value = _hwActiveInput.value.slice(0,s) + ch + _hwActiveInput.value.slice(e);
+  _hwActiveInput.selectionStart = _hwActiveInput.selectionEnd = s + 1;
+  _hwActiveInput.focus();
+}
+
+function renderAccentBar(disabled) {
+  return (!disabled ? '<div class="center"><button class="keys-toggle" id="keys-toggle">accents ↑</button></div>' : '') +
+    '<div class="keys" id="keys">' +
+    ACCENTS.map(function(c){return '<button class="key" data-c="'+c+'"'+(disabled?' disabled':'')+'>'+c+'</button>';}).join('') +
+    '</div>';
+}
+
+function bindHWInputs() {
+  var inputs = document.querySelectorAll('.field:not(:disabled)');
+  inputs.forEach(function(inp) { inp.addEventListener('focus', function(){_hwActiveInput=inp;}); });
+  if (inputs.length > 0) { setTimeout(function(){inputs[0].focus();}, 60); _hwActiveInput = inputs[0]; }
+  var toggle = $('keys-toggle'), keysEl = $('keys');
+  if (toggle && keysEl) {
+    toggle.onclick = function() {
+      var open = keysEl.style.display === 'none';
+      keysEl.style.display = open ? 'flex' : 'none';
+      toggle.textContent = open ? 'accents ↑' : 'accents ↓';
+    };
+  }
+  document.querySelectorAll('.key').forEach(function(k) {
+    k.addEventListener('mousedown', function(e){e.preventDefault();});
+    k.onclick = function(){insertCharHW(k.dataset.c);};
+  });
+}
+
+function renderHWDots() {
+  var dots = [];
+  for (var i=1; i<=18; i++) {
+    var cls = 'hw-prog-dot';
+    if (i < S.hwStep) cls += ' done';
+    else if (i === S.hwStep) cls += ' active';
+    dots.push('<div class="'+cls+'"></div>');
+  }
+  return '<div class="hw-prog"><div class="hw-prog-dots">'+dots.join('')+'</div></div>';
+}
+
+function renderHWHistory() {
+  if (!S.progress || !S.progress.hw) return '';
+  var hw = S.progress.hw;
+  var days = Object.keys(hw).filter(function(k){return hw[k].complete;}).sort().reverse().slice(0,7);
+  if (days.length === 0) return '';
+  return '<div class="hw-history">' +
+    '<div class="hw-history-title">Last '+days.length+' sessions</div>' +
+    days.map(function(d) {
+      var entry = hw[d], score = entry.score || {total:0,correct:0};
+      var pct = score.total > 0 ? Math.round((score.correct/score.total)*100) : 0;
+      var color = pct >= 80 ? 'var(--ok)' : pct >= 50 ? 'var(--accent)' : 'var(--err)';
+      return '<div class="hw-history-row">' +
+        '<span class="hw-history-date">'+d.slice(5)+'</span>' +
+        '<div class="hw-history-bar"><div class="hw-history-fill" style="width:'+pct+'%;background:'+color+'"></div></div>' +
+        '<span class="hw-history-score" style="color:'+color+'">'+score.correct+'/'+score.total+'</span>' +
+      '</div>';
+    }).join('') + '</div>';
+}
+
+function errorLabel(key) {
+  var labels = {
+    je:'je conjugation', tu:'tu conjugation', il:'il/elle conjugation',
+    nous:'nous conjugation', vous:'vous conjugation', ils:'ils/elles conjugation',
+    article:'Articles (un/une)', plural:'Plural forms',
+    feminine:'Feminine forms', mascPlural:'Masc. plurals', femPlural:'Fem. plurals',
+    sentence:'Sentence translation'
+  };
+  return labels[key] || key;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   RENDER ROUTER
+   ═══════════════════════════════════════════════════════════════ */
+
+function render() {
+  var screens = {loading:renderLoading, setup:renderSetup, login:renderLogin, dashboard:renderDashboard, hw:renderHW, summary:renderHWSummary};
+  (screens[S.screen] || renderLoading)();
+}
+
+function renderLoading() {
+  app().innerHTML = '<div class="wrap center" style="padding-top:40vh"><div class="spin"></div><p class="sub mt-sm">Loading...</p></div>';
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   DASHBOARD
+   ═══════════════════════════════════════════════════════════════ */
+
+function renderDashboard() {
+  var dueV = ALL_WORDS.filter(function(w){return w.type==='verb' && SRS.isDue(getCard(w.id));}).length;
+  var dueN = ALL_WORDS.filter(function(w){return w.type==='noun' && SRS.isDue(getCard(w.id));}).length;
+  var dueA = ALL_WORDS.filter(function(w){return w.type==='adj' && SRS.isDue(getCard(w.id));}).length;
+  var totalDue = dueV + dueN + dueA;
+
+  var reviewed = ALL_WORDS.filter(function(w){return getCard(w.id).lastReview;}).length;
+  var mastered = ALL_WORDS.filter(function(w){return getCard(w.id).interval >= 14;}).length;
+
+  var patterns = {};
+  ALL_WORDS.forEach(function(w) {
+    var c = getCard(w.id);
+    if (c.errors) { for (var k in c.errors) { if (c.errors[k] > 0) patterns[k] = (patterns[k]||0) + c.errors[k]; } }
+  });
+  var topErrors = Object.entries(patterns).sort(function(a,b){return b[1]-a[1];}).slice(0,5);
+  var maxErr = topErrors.length > 0 ? topErrors[0][1] : 1;
+
+  var weakest = ALL_WORDS.filter(function(w){return getCard(w.id).lastReview;})
+    .map(function(w){return {word:w, errors:SRS.errorWeight(getCard(w.id))};})
+    .filter(function(e){return e.errors > 0;})
+    .sort(function(a,b){return b.errors - a.errors;})
+    .slice(0,5);
+
+  var doneToday = isHWDoneToday();
+  var btnLabel = doneToday ? 'Extra Practice' : (totalDue > 0 ? 'Start Practice ('+totalDue+' due)' : 'Start Practice');
+
+  app().innerHTML =
+    '<div class="wrap">' +
+      '<div class="center mb">' +
+        '<div class="auth-logo">🇫🇷</div>' +
+        '<div class="auth-title serif">French Drills</div>' +
+        '<div class="auth-sub">Adaptive Practice</div>' +
+      '</div>' +
+      (renderStreakBadge() ? '<div class="center mb">'+renderStreakBadge()+'</div>' : '') +
+
+      '<div class="dash-section">' +
+        '<div class="dash-section-title">Progress</div>' +
+        '<div class="stat-row">' +
+          '<div class="stat-box"><div class="stat-val">'+totalDue+'</div><div class="stat-label">Due Today</div></div>' +
+          '<div class="stat-box"><div class="stat-val">'+reviewed+'</div><div class="stat-label">Learned</div></div>' +
+          '<div class="stat-box"><div class="stat-val">'+mastered+'</div><div class="stat-label">Mastered</div></div>' +
+        '</div>' +
+        '<div class="stat-row mt-sm">' +
+          '<div class="stat-box"><div class="stat-val" style="font-size:1.125rem">'+dueV+'V · '+dueN+'N · '+dueA+'A</div><div class="stat-label">Due by Type</div></div>' +
+        '</div>' +
+      '</div>' +
+
+      (topErrors.length > 0 ?
+        '<div class="dash-section">' +
+          '<div class="dash-section-title">Weak Patterns</div>' +
+          '<div class="card">' +
+            topErrors.map(function(e) {
+              var pct = Math.round((e[1]/maxErr)*100);
+              return '<div style="margin-bottom:.75rem">' +
+                '<div class="hw-summary-row" style="border:none;padding:0">' +
+                  '<span>'+errorLabel(e[0])+'</span>' +
+                  '<span style="font-weight:700;color:var(--err)">'+e[1]+'</span>' +
+                '</div>' +
+                '<div class="err-bar"><div class="err-bar-fill" style="width:'+pct+'%"></div></div>' +
+              '</div>';
+            }).join('') +
+          '</div>' +
+        '</div>' : '') +
+
+      (weakest.length > 0 ?
+        '<div class="dash-section">' +
+          '<div class="dash-section-title">Weakest Words</div>' +
+          '<div class="card">' +
+            weakest.map(function(e) {
+              var c = getCard(e.word.id);
+              var badge = !c.lastReview ? 'srs-new' : SRS.isDue(c) ? 'srs-due' : 'srs-ok';
+              var badgeText = !c.lastReview ? 'NEW' : SRS.isDue(c) ? 'DUE' : c.interval+'d';
+              return '<div class="hw-summary-row">' +
+                '<span style="font-weight:600;font-family:Georgia,serif">'+esc(e.word.word)+'</span>' +
+                '<span style="color:var(--text-dim);font-size:.8125rem;flex:1;margin-left:.5rem">'+esc(e.word.meaning)+'</span>' +
+                '<span class="srs-badge '+badge+'">'+badgeText+'</span>' +
+                '<span style="font-weight:700;color:var(--err);margin-left:.5rem;min-width:2rem;text-align:right">'+e.errors+'</span>' +
+              '</div>';
+            }).join('') +
+          '</div>' +
+        '</div>' : '') +
+
+      renderHWHistory() +
+
+      '<div class="col mt">' +
+        '<button class="btn btn-p" id="start-btn" style="border-radius:12px;padding:1rem">'+btnLabel+'</button>' +
+        '<button class="btn btn-g" id="lock-btn" style="border-radius:12px;padding:1rem">Lock</button>' +
+      '</div>' +
+    '</div>';
+
+  $('start-btn').onclick = startHWMode;
+  $('lock-btn').onclick = doLock;
+}
+
+function doLock() {
+  localStorage.removeItem('fd2_token');
+  S.gh = null; S.progress = null; S.screen = 'login'; S.error = null;
+  render();
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   AUTH — Setup + Login
+   ═══════════════════════════════════════════════════════════════ */
+
+function renderSetup() {
+  app().innerHTML =
+    '<div class="wrap" style="padding-top:10vh">' +
+      '<div class="center mb">' +
+        '<div class="auth-logo">🇫🇷</div>' +
+        '<div class="auth-title serif">French Drills V2</div>' +
+        '<div class="auth-sub">First-time setup</div>' +
+      '</div>' +
+      (S.error ? '<div class="error-msg">'+esc(S.error)+'</div>' : '') +
+      '<div class="card">' +
+        '<div class="form-group"><label class="form-label">Create a password</label><input type="password" class="field field-pw" id="pw1" placeholder="Your password" autocomplete="new-password"></div>' +
+        '<div class="form-group"><label class="form-label">Confirm password</label><input type="password" class="field field-pw" id="pw2" placeholder="Confirm password" autocomplete="new-password"></div>' +
+        '<div class="form-group"><label class="form-label">GitHub Personal Access Token</label><input type="password" class="field field-pw" id="pat" placeholder="github_pat_..." autocomplete="off"><div class="form-help">Fine-grained PAT scoped to <strong>'+CFG.owner+'/'+CFG.repo+'</strong> with Contents read/write.</div></div>' +
+        '<button class="btn btn-p mt" id="setup-btn">Set Up</button>' +
+      '</div>' +
+    '</div>';
+  $('setup-btn').onclick = doSetup;
+  $('pw1').focus();
+  [$('pw1'),$('pw2'),$('pat')].forEach(function(el){el.addEventListener('keydown',function(e){if(e.key==='Enter')doSetup();});});
+}
+
+async function doSetup() {
+  var pw1=$('pw1').value, pw2=$('pw2').value, pat=$('pat').value;
+  S.error = null;
+  if (!pw1 || pw1.length < 4) { S.error='Password must be at least 4 characters.'; render(); return; }
+  if (pw1 !== pw2) { S.error="Passwords don't match."; render(); return; }
+  if (!pat || !pat.startsWith('github_pat_')) { S.error='Please enter a valid fine-grained PAT.'; render(); return; }
+  $('setup-btn').disabled = true;
+  $('setup-btn').innerHTML = '<span class="spin"></span> Setting up...';
+  try {
+    var gh = new GH(pat);
+    try { await gh.get('README.md'); } catch(e) {}
+    var enc = await Cry.encrypt(pw1, pat);
+    await gh.put('config.enc', JSON.stringify(enc), 'Setup: encrypted config');
+    var prog = defaultProgress(); prog.updated = new Date().toISOString();
+    await gh.put('DRILL-PROGRESS.json', JSON.stringify(prog,null,2), 'Setup: initial progress');
+    localStorage.setItem('fd2_token', pat);
+    localStorage.setItem('fd2_setup', '1');
+    S.gh = gh; S.progress = prog; S.error = null;
+    S.screen = 'dashboard'; render();
+  } catch(e) {
+    S.error = 'Setup failed: '+e.message;
+    render();
+  }
+}
+
+function renderLogin() {
+  app().innerHTML =
+    '<div class="wrap" style="padding-top:15vh">' +
+      '<div class="center mb">' +
+        '<div class="auth-logo">🇫🇷</div>' +
+        '<div class="auth-title serif">French Drills V2</div>' +
+        '<div class="auth-sub">Enter your password to continue</div>' +
+      '</div>' +
+      (S.error ? '<div class="error-msg">'+esc(S.error)+'</div>' : '') +
+      '<div class="card">' +
+        '<div class="form-group"><input type="password" class="field field-pw" id="pw" placeholder="Password" autocomplete="current-password"></div>' +
+        '<label class="checkbox-row"><input type="checkbox" id="remember" checked> Stay logged in on this device</label>' +
+        '<button class="btn btn-p mt-sm" id="login-btn">Unlock</button>' +
+      '</div>' +
+    '</div>';
+  $('login-btn').onclick = doLogin;
+  $('pw').focus();
+  $('pw').addEventListener('keydown', function(e){if(e.key==='Enter')doLogin();});
+}
+
+async function doLogin() {
+  var pw = $('pw').value;
+  S.error = null;
+  if (!pw) { S.error = 'Enter your password.'; render(); return; }
+  $('login-btn').disabled = true;
+  $('login-btn').innerHTML = '<span class="spin"></span> Unlocking...';
+  try {
+    var gh = new GH(null);
+    var raw = await gh.get('config.enc');
+    if (!raw) { S.error='No config found. Need to set up again.'; localStorage.removeItem('fd2_setup'); S.screen='setup'; render(); return; }
+    var bundle = JSON.parse(raw), pat;
+    try { pat = await Cry.decrypt(pw, bundle); } catch(e) { S.error='Wrong password.'; render(); return; }
+    gh.token = pat;
+    if ($('remember').checked) localStorage.setItem('fd2_token', pat);
+    var progRaw = await gh.get('DRILL-PROGRESS.json');
+    var prog = progRaw ? JSON.parse(progRaw) : defaultProgress();
+    S.gh = gh; S.progress = prog; S.error = null;
+    var local = localStorage.getItem('fd2_progress');
+    if (local) { var lp = JSON.parse(local); if (lp.updated && (!S.progress.updated || lp.updated > S.progress.updated)) S.progress = lp; }
+    S.screen = 'dashboard'; render();
+  } catch(e) { S.error = 'Login failed: '+e.message; render(); }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   HW MODE — adaptive homework sessions
+   ═══════════════════════════════════════════════════════════════ */
+
+function startHWMode() {
+  var today = todayStr();
+  var existing = S.progress && S.progress.hw && S.progress.hw[today];
+
+  S.screen = 'hw';
+  S.hwStep = 0;
+  if (!S.sessionStartTime) S.sessionStartTime = Date.now();
+
+  if (existing && !existing.complete && existing.wordIds) {
+    S.hwSession = {
+      verbs: existing.wordIds.verbs.map(function(id){return WORD_MAP[id];}),
+      nouns: existing.wordIds.nouns.map(function(id){return WORD_MAP[id];}),
+      adj: existing.wordIds.adj.map(function(id){return WORD_MAP[id];})
+    };
+    S.hwWords = {
+      verbs: S.hwSession.verbs.map(function(w){return w.word;}),
+      nouns: S.hwSession.nouns.map(function(w){return {w:w.word, g:w.gender};}),
+      adjectives: S.hwSession.adj.map(function(w){return w.word;})
+    };
+    S.hwStep = existing.lastStep || 0;
+    S.hwResults = existing.results || {verbs:[],nouns:[],adjectives:[],sentences:[]};
+    S.hwChecked = existing.checked || {};
+    S.hwResponseCount = existing.responses || 0;
+    S.hwStartTime = existing.startedAt || null;
+  } else {
+    var session = buildSession();
+    S.hwSession = session;
+    S.hwWords = {
+      verbs: session.verbs.map(function(w){return w.word;}),
+      nouns: session.nouns.map(function(w){return {w:w.word, g:w.gender};}),
+      adjectives: session.adj.map(function(w){return w.word;})
+    };
+    S.hwResults = {verbs:[],nouns:[],adjectives:[],sentences:[]};
+    S.hwChecked = {};
+    S.hwResponseCount = 0;
+    S.hwStartTime = null;
+  }
+  render();
+}
+
+function renderHW() {
+  if (S.hwStep === 0) return renderHWEntry();
+  if (S.hwStep === 1) return renderHWVerb(0);
+  if (S.hwStep === 2) return renderHWWordSentences('verbs', 0);
+  if (S.hwStep === 3) return renderHWVerb(1);
+  if (S.hwStep === 4) return renderHWWordSentences('verbs', 1);
+  if (S.hwStep === 5) return renderHWVerb(2);
+  if (S.hwStep === 6) return renderHWWordSentences('verbs', 2);
+  if (S.hwStep === 7) return renderHWNoun(0);
+  if (S.hwStep === 8) return renderHWWordSentences('nouns', 0);
+  if (S.hwStep === 9) return renderHWNoun(1);
+  if (S.hwStep === 10) return renderHWWordSentences('nouns', 1);
+  if (S.hwStep === 11) return renderHWNoun(2);
+  if (S.hwStep === 12) return renderHWWordSentences('nouns', 2);
+  if (S.hwStep === 13) return renderHWAdj(0);
+  if (S.hwStep === 14) return renderHWWordSentences('adj', 0);
+  if (S.hwStep === 15) return renderHWAdj(1);
+  if (S.hwStep === 16) return renderHWWordSentences('adj', 1);
+  if (S.hwStep === 17) return renderHWAdj(2);
+  if (S.hwStep === 18) return renderHWWordSentences('adj', 2);
+  if (S.hwStep === 19) { S.screen = 'summary'; render(); }
+}
+
+function renderHWEntry() {
+  var session = S.hwSession;
+  var doneToday = isHWDoneToday();
+  var label = doneToday ? 'Extra Round' : 'Daily Homework';
+
+  function wordLine(french, meaning, card) {
+    var badge = '';
+    if (card) {
+      if (!card.lastReview) badge = '<span class="srs-badge srs-new" style="margin-left:auto">NEW</span>';
+      else if (SRS.isDue(card)) badge = '<span class="srs-badge srs-due" style="margin-left:auto">DUE</span>';
+      else badge = '<span class="srs-badge srs-ok" style="margin-left:auto">'+card.interval+'d</span>';
+    }
+    return '<div style="padding:.625rem 0;border-bottom:1px solid var(--line);display:flex;align-items:baseline;gap:.75rem">' +
+      '<span style="font-weight:700;font-size:clamp(1.125rem,2.5vw,1.375rem)">'+esc(french)+'</span>' +
+      '<span style="color:var(--text-dim);font-size:clamp(.9375rem,2vw,1.0625rem)">'+esc(meaning)+'</span>' +
+      badge +
+    '</div>';
+  }
+
+  app().innerHTML =
+    '<div class="dp">' +
+      '<div class="dp-top">' +
+        '<div class="row between">' +
+          '<span class="dp-count">'+label+'</span>' +
+          renderStreakBadge() +
+          '<span class="dp-count">'+todayStr()+'</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="dp-body" style="justify-content:flex-start;padding-top:.5rem">' +
+        '<div class="card" style="background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1.25rem;box-shadow:var(--card-shadow);margin-bottom:.75rem">' +
+          '<div class="hw-entry-label">Verbs</div>' +
+          session.verbs.map(function(w){return wordLine(w.word, w.meaning, getCard(w.id));}).join('') +
+        '</div>' +
+        '<div class="card" style="background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1.25rem;box-shadow:var(--card-shadow);margin-bottom:.75rem">' +
+          '<div class="hw-entry-label">Nouns</div>' +
+          session.nouns.map(function(w){var art=w.gender==='f'?'une':'un';return wordLine(art+' '+w.word, w.meaning, getCard(w.id));}).join('') +
+        '</div>' +
+        '<div class="card" style="background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1.25rem;box-shadow:var(--card-shadow);margin-bottom:.75rem">' +
+          '<div class="hw-entry-label" style="margin-bottom:.375rem">Adjectives <span style="font-weight:400;text-transform:none;font-size:.75rem">(masc. singular)</span></div>' +
+          session.adj.map(function(w){return wordLine(w.word, w.meaning, getCard(w.id));}).join('') +
+        '</div>' +
+        '<button class="btn btn-p mt" id="start-hw-btn">Start Homework</button>' +
+        '<button class="btn btn-g mt-sm" id="back-btn" style="border-radius:50px">← Dashboard</button>' +
+      '</div>' +
+    '</div>';
+
+  $('start-hw-btn').onclick = function() { S.hwStep = 1; saveHWState(); render(); };
+  $('back-btn').onclick = function() { S.screen = 'dashboard'; render(); };
+}
+
+
+/* ── Verb exercise ── */
+
+function renderHWVerb(idx) {
+  var verb = S.hwWords.verbs[idx];
+  var checked = S.hwChecked['v'+idx];
+  var pct = Math.round((S.hwStep / 19) * 100);
+
+  app().innerHTML =
+    '<div class="dp"><div class="dp-top">' +
+      '<div class="row between" style="margin-bottom:.5rem"><span class="dp-count">Verb '+(idx+1)+'/3</span><span class="dp-count">'+S.hwStep+'/18</span></div>' +
+      '<div class="prog-track"><div class="prog-fill" style="width:'+pct+'%"></div></div>' +
+      renderHWDots() +
+    '</div><div class="dp-body" style="justify-content:flex-start">' +
+      '<div class="serif" style="font-size:2rem;text-align:center;margin-bottom:1.5rem">'+esc(verb)+'</div>' +
+      '<div class="sub center" style="margin-bottom:1.25rem">Conjugate in present tense</div>' +
+      PRONOUNS.map(function(p, i) {
+        var f = checked ? checked.forms[p] : null;
+        var conj = French.conjugateER(verb);
+        var lbl = pronounLabel(p, conj[p]);
+        return '<div class="conj-row">' +
+          '<span class="conj-label">'+esc(lbl)+'</span>' +
+          '<div class="conj-input">' +
+            '<input type="text" class="field'+(f?(f.ok?' field-ok':' field-err'):'')+'" id="conj'+i+'" placeholder="..." autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" value="'+(f?esc(f.typed):'')+'"'+(checked?' disabled':'')+'>' +
+            (f && !f.ok ? '<div class="conj-result"><span class="conj-wrong">→</span><span class="conj-answer conj-correct">'+esc(f.correct)+'</span></div>' : '') +
+          '</div></div>';
+      }).join('') +
+      (!checked ?
+        renderAccentBar(false) + '<button class="btn btn-p mt" id="hw-check-btn">Vérifier</button>'
+      :
+        '<div class="fb '+(checked.score.correct===checked.score.total?'fb-ok':'fb-err')+' mt"><span class="fb-head">'+checked.score.correct+'/'+checked.score.total+' correct</span></div>' +
+        '<button class="btn btn-p mt" id="hw-next-btn">Suivant →</button>'
+      ) +
+    '</div></div>';
+
+  if (!checked) {
+    bindHWInputs();
+    $('hw-check-btn').onclick = function(){checkHWVerb(idx);};
+    var last = $('conj5');
+    if (last) last.addEventListener('keydown', function(e){if(e.key==='Enter')checkHWVerb(idx);});
+  } else {
+    $('hw-next-btn').onclick = hwNext;
+    bindEnterAdvance();
+  }
+}
+
+function checkHWVerb(idx) {
+  if (!S.hwStartTime) S.hwStartTime = new Date().toISOString();
+  S.hwResponseCount++;
+  var verb = S.hwWords.verbs[idx];
+  var correct = French.conjugateER(verb);
+  var forms = {}, scoreCorrect = 0;
+  var wordData = S.hwSession.verbs[idx];
+  var card = getCard(wordData.id);
+
+  PRONOUNS.forEach(function(p, i) {
+    var typed = normApostrophe(($('conj'+i)?$('conj'+i).value:'').trim().toLowerCase().normalize('NFC'));
+    var rawForm = correct[p].normalize('NFC');
+    var displayCorrect = correct[p];
+    var ok = accentMatch(typed, rawForm);
+    if (p === 'je' && needsElision(rawForm)) {
+      var elided = ("j'"+rawForm).normalize('NFC');
+      displayCorrect = "j'"+correct[p];
+      if (accentMatch(typed, elided)) ok = true;
+    }
+    if (ok) scoreCorrect++;
+    else {
+      var errKey = ['je','tu','il','nous','vous','ils'][i];
+      card.errors[errKey] = (card.errors[errKey]||0) + 1;
+    }
+    forms[p] = {typed:typed, correct:displayCorrect, ok:ok};
+  });
+
+  setCard(wordData.id, card);
+  S.hwChecked['v'+idx] = {forms:forms, score:{total:6, correct:scoreCorrect}};
+  S.hwResults.verbs[idx] = {word:verb, forms:forms, score:{total:6, correct:scoreCorrect}};
+  saveHWState(); render();
+}
+
+
+/* ── Noun exercise ── */
+
+function renderHWNoun(idx) {
+  var noun = S.hwWords.nouns[idx];
+  var checked = S.hwChecked['n'+idx];
+  var pct = Math.round((S.hwStep / 19) * 100);
+  var article = noun.g === 'f' ? 'une' : 'un';
+  var hl = hintLevel();
+  var genderHint = hl <= 1 ? (noun.g === 'f' ? 'feminine' : 'masculine') : '';
+  var articlePlaceholder = hl === 0 ? (article+' ...') : '...';
+  var pluralPlaceholder = hl === 0 ? 'des ...' : '...';
+  var articleLabel = hl === 0 ? 'Write with un or une:' : 'Write with the correct article:';
+
+  app().innerHTML =
+    '<div class="dp"><div class="dp-top">' +
+      '<div class="row between" style="margin-bottom:.5rem"><span class="dp-count">Noun '+(idx+1)+'/3</span><span class="dp-count">'+S.hwStep+'/18</span></div>' +
+      '<div class="prog-track"><div class="prog-fill" style="width:'+pct+'%"></div></div>' +
+      renderHWDots() +
+    '</div><div class="dp-body" style="justify-content:flex-start">' +
+      '<div class="serif" style="font-size:2rem;text-align:center;margin-bottom:.5rem">'+esc(noun.w)+'</div>' +
+      (genderHint ? '<div class="sub center" style="margin-bottom:1.5rem">'+genderHint+'</div>' : '<div style="margin-bottom:1.5rem"></div>') +
+      '<div class="hw-form-row"><label class="hw-form-label">'+articleLabel+'</label>' +
+        '<input type="text" class="field'+(checked?(checked.article&&checked.article.ok?' field-ok':' field-err'):'')+'" id="noun-article" placeholder="'+articlePlaceholder+'" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" value="'+(checked&&checked.article?esc(checked.article.typed):'')+'"'+(checked?' disabled':'')+'>' +
+        (checked&&checked.article&&!checked.article.ok?'<div class="conj-result"><span class="conj-wrong">→</span><span class="conj-answer conj-correct">'+esc(checked.article.correct)+'</span></div>':'') +
+      '</div>' +
+      '<div class="hw-form-row"><label class="hw-form-label">Write the plural:</label>' +
+        '<input type="text" class="field'+(checked?(checked.plural&&checked.plural.ok?' field-ok':' field-err'):'')+'" id="noun-plural" placeholder="'+pluralPlaceholder+'" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" value="'+(checked&&checked.plural?esc(checked.plural.typed):'')+'"'+(checked?' disabled':'')+'>' +
+        (checked&&checked.plural&&!checked.plural.ok?'<div class="conj-result"><span class="conj-wrong">→</span><span class="conj-answer conj-correct">'+esc(checked.plural.correct)+'</span></div>':'') +
+      '</div>' +
+      (!checked ?
+        renderAccentBar(false) + '<button class="btn btn-p mt" id="hw-check-btn">Vérifier</button>'
+      :
+        '<div class="fb '+(checked.score.correct===checked.score.total?'fb-ok':'fb-err')+' mt"><span class="fb-head">'+checked.score.correct+'/'+checked.score.total+' correct</span></div>' +
+        '<button class="btn btn-p mt" id="hw-next-btn">Suivant →</button>'
+      ) +
+    '</div></div>';
+
+  if (!checked) {
+    bindHWInputs();
+    $('hw-check-btn').onclick = function(){checkHWNoun(idx);};
+    var pl = $('noun-plural');
+    if (pl) pl.addEventListener('keydown', function(e){if(e.key==='Enter')checkHWNoun(idx);});
+  } else { $('hw-next-btn').onclick = hwNext; bindEnterAdvance(); }
+}
+
+function checkHWNoun(idx) {
+  if (!S.hwStartTime) S.hwStartTime = new Date().toISOString();
+  S.hwResponseCount++;
+  var noun = S.hwWords.nouns[idx];
+  var articleWord = noun.g === 'f' ? 'une' : 'un';
+  var norm = function(s){return normApostrophe(s.trim().toLowerCase().normalize('NFC').replace(/\s+/g,' '));};
+  var typedArticle = norm($('noun-article')?$('noun-article').value:'');
+  var correctArticle = articleWord + ' ' + noun.w;
+  var okArticle = accentMatch(typedArticle, norm(correctArticle));
+  var typedPlural = norm($('noun-plural')?$('noun-plural').value:'');
+  var correctPlural = 'des ' + French.pluralNoun(noun.w);
+  var okPlural = accentMatch(typedPlural, norm(correctPlural));
+  var scoreCorrect = (okArticle?1:0) + (okPlural?1:0);
+
+  var wordData = S.hwSession.nouns[idx];
+  var card = getCard(wordData.id);
+  if (!okArticle) card.errors.article = (card.errors.article||0) + 1;
+  if (!okPlural) card.errors.plural = (card.errors.plural||0) + 1;
+  setCard(wordData.id, card);
+
+  S.hwChecked['n'+idx] = {
+    article:{typed:typedArticle,correct:correctArticle,ok:okArticle},
+    plural:{typed:typedPlural,correct:correctPlural,ok:okPlural},
+    score:{total:2,correct:scoreCorrect}
+  };
+  S.hwResults.nouns[idx] = {word:noun.w, gender:noun.g,
+    article:{typed:typedArticle,correct:correctArticle,ok:okArticle},
+    plural:{typed:typedPlural,correct:correctPlural,ok:okPlural},
+    score:{total:2,correct:scoreCorrect}
+  };
+  saveHWState(); render();
+}
+
+
+/* ── Adjective exercise ── */
+
+function renderHWAdj(idx) {
+  var adj = S.hwWords.adjectives[idx];
+  var checked = S.hwChecked['a'+idx];
+  var pct = Math.round((S.hwStep / 19) * 100);
+  var hl = hintLevel();
+  var showFormHint = hl <= 1;
+
+  app().innerHTML =
+    '<div class="dp"><div class="dp-top">' +
+      '<div class="row between" style="margin-bottom:.5rem"><span class="dp-count">Adjective '+(idx+1)+'/3</span><span class="dp-count">'+S.hwStep+'/18</span></div>' +
+      '<div class="prog-track"><div class="prog-fill" style="width:'+pct+'%"></div></div>' +
+      renderHWDots() +
+    '</div><div class="dp-body" style="justify-content:flex-start">' +
+      '<div class="serif" style="font-size:2rem;text-align:center;margin-bottom:.5rem">'+esc(adj)+'</div>' +
+      (showFormHint?'<div class="sub center" style="margin-bottom:1.5rem">masculine singular</div>':'<div style="margin-bottom:1.5rem"></div>') +
+      '<div class="hw-form-row"><label class="hw-form-label">'+(showFormHint?'Feminine singular:':'Feminine:')+'</label>' +
+        '<input type="text" class="field'+(checked?(checked.fem&&checked.fem.ok?' field-ok':' field-err'):'')+'" id="adj-fem" placeholder="..." autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" value="'+(checked&&checked.fem?esc(checked.fem.typed):'')+'"'+(checked?' disabled':'')+'>' +
+        (checked&&checked.fem&&!checked.fem.ok?'<div class="conj-result"><span class="conj-wrong">→</span><span class="conj-answer conj-correct">'+esc(checked.fem.correct)+'</span></div>':'') +
+      '</div>' +
+      '<div class="hw-form-row"><label class="hw-form-label">'+(showFormHint?'Masculine plural:':'Masc. plural:')+'</label>' +
+        '<input type="text" class="field'+(checked?(checked.mascPl&&checked.mascPl.ok?' field-ok':' field-err'):'')+'" id="adj-mpl" placeholder="..." autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" value="'+(checked&&checked.mascPl?esc(checked.mascPl.typed):'')+'"'+(checked?' disabled':'')+'>' +
+        (checked&&checked.mascPl&&!checked.mascPl.ok?'<div class="conj-result"><span class="conj-wrong">→</span><span class="conj-answer conj-correct">'+esc(checked.mascPl.correct)+'</span></div>':'') +
+      '</div>' +
+      '<div class="hw-form-row"><label class="hw-form-label">'+(showFormHint?'Feminine plural:':'Fem. plural:')+'</label>' +
+        '<input type="text" class="field'+(checked?(checked.femPl&&checked.femPl.ok?' field-ok':' field-err'):'')+'" id="adj-fpl" placeholder="..." autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" value="'+(checked&&checked.femPl?esc(checked.femPl.typed):'')+'"'+(checked?' disabled':'')+'>' +
+        (checked&&checked.femPl&&!checked.femPl.ok?'<div class="conj-result"><span class="conj-wrong">→</span><span class="conj-answer conj-correct">'+esc(checked.femPl.correct)+'</span></div>':'') +
+      '</div>' +
+      (!checked ?
+        renderAccentBar(false) + '<button class="btn btn-p mt" id="hw-check-btn">Vérifier</button>'
+      :
+        '<div class="fb '+(checked.score.correct===checked.score.total?'fb-ok':'fb-err')+' mt"><span class="fb-head">'+checked.score.correct+'/'+checked.score.total+' correct</span></div>' +
+        '<button class="btn btn-p mt" id="hw-next-btn">Suivant →</button>'
+      ) +
+    '</div></div>';
+
+  if (!checked) {
+    bindHWInputs();
+    $('hw-check-btn').onclick = function(){checkHWAdj(idx);};
+    var fpl = $('adj-fpl');
+    if (fpl) fpl.addEventListener('keydown', function(e){if(e.key==='Enter')checkHWAdj(idx);});
+  } else { $('hw-next-btn').onclick = hwNext; bindEnterAdvance(); }
+}
+
+function checkHWAdj(idx) {
+  if (!S.hwStartTime) S.hwStartTime = new Date().toISOString();
+  S.hwResponseCount++;
+  var adj = S.hwWords.adjectives[idx];
+  var norm = function(s){return normApostrophe(s.trim().toLowerCase().normalize('NFC'));};
+  var correctFem = French.feminizeAdj(adj);
+  var correctMascPl = French.pluralAdj(adj);
+  var correctFemPl = French.pluralAdj(correctFem);
+  var typedFem = norm($('adj-fem')?$('adj-fem').value:'');
+  var typedMascPl = norm($('adj-mpl')?$('adj-mpl').value:'');
+  var typedFemPl = norm($('adj-fpl')?$('adj-fpl').value:'');
+  var okFem = accentMatch(typedFem, norm(correctFem));
+  var okMascPl = accentMatch(typedMascPl, norm(correctMascPl));
+  var okFemPl = accentMatch(typedFemPl, norm(correctFemPl));
+  var scoreCorrect = (okFem?1:0) + (okMascPl?1:0) + (okFemPl?1:0);
+
+  var wordData = S.hwSession.adj[idx];
+  var card = getCard(wordData.id);
+  if (!okFem) card.errors.feminine = (card.errors.feminine||0) + 1;
+  if (!okMascPl) card.errors.mascPlural = (card.errors.mascPlural||0) + 1;
+  if (!okFemPl) card.errors.femPlural = (card.errors.femPlural||0) + 1;
+  setCard(wordData.id, card);
+
+  S.hwChecked['a'+idx] = {
+    fem:{typed:typedFem,correct:correctFem,ok:okFem},
+    mascPl:{typed:typedMascPl,correct:correctMascPl,ok:okMascPl},
+    femPl:{typed:typedFemPl,correct:correctFemPl,ok:okFemPl},
+    score:{total:3,correct:scoreCorrect}
+  };
+  S.hwResults.adjectives[idx] = {word:adj,
+    fem:{typed:typedFem,correct:correctFem,ok:okFem},
+    mascPl:{typed:typedMascPl,correct:correctMascPl,ok:okMascPl},
+    femPl:{typed:typedFemPl,correct:correctFemPl,ok:okFemPl},
+    score:{total:3,correct:scoreCorrect}
+  };
+  saveHWState(); render();
+}
+
+
+/* ── Sentence exercises ── */
+
+function renderHWWordSentences(type, wordIdx) {
+  var typeKey = type === 'adj' ? 'adj' : type;
+  var wordData = S.hwSession[typeKey][wordIdx];
+  var items = wordData.sentences;
+  var keyPrefix = type === 'verbs' ? 'sv' : type === 'nouns' ? 'sn' : 'sa';
+  var checkedKey = keyPrefix + wordIdx;
+  var checked = S.hwChecked[checkedKey];
+  var pct = Math.round((S.hwStep / 19) * 100);
+  var wordName = wordData.word;
+  var labelSuffix = type === 'verbs' ? 'Sentences' : 'Phrases';
+
+  var inputsHTML = '';
+  for (var si=0; si<items.length; si++) {
+    var item = items[si];
+    var ch = checked ? checked.items[si] : null;
+    inputsHTML += '<div class="hw-form-row">' +
+      '<label class="hw-form-label">'+(si+1)+'. '+esc(item.en)+'</label>' +
+      '<input type="text" class="field'+(ch?(ch.ok?' field-ok':' field-err'):'')+'" id="sent-'+si+'" placeholder="..." autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" value="'+(ch?esc(ch.typed):'')+'"'+(checked?' disabled':'')+'>' +
+      (ch&&!ch.ok?'<div class="conj-result"><span class="conj-wrong">→</span><span class="conj-answer conj-correct">'+esc(ch.correct)+'</span></div>':'') +
+    '</div>';
+  }
+
+  app().innerHTML =
+    '<div class="dp"><div class="dp-top">' +
+      '<div class="row between" style="margin-bottom:.5rem"><span class="dp-count">'+esc(wordName)+' — '+labelSuffix+'</span><span class="dp-count">'+S.hwStep+'/18</span></div>' +
+      '<div class="prog-track"><div class="prog-fill" style="width:'+pct+'%"></div></div>' +
+      renderHWDots() +
+    '</div><div class="dp-body" style="justify-content:flex-start">' +
+      '<div class="serif" style="font-size:2rem;text-align:center;margin-bottom:.5rem">'+esc(wordName)+'</div>' +
+      '<div class="sub center" style="margin-bottom:1rem">Translate to French:</div>' +
+      inputsHTML +
+      (!checked ?
+        renderAccentBar(false) + '<button class="btn btn-p mt" id="hw-check-btn">Vérifier</button>'
+      :
+        '<div class="fb '+(checked.score.correct===checked.score.total?'fb-ok':'fb-err')+' mt"><span class="fb-head">'+checked.score.correct+'/'+checked.score.total+' correct</span></div>' +
+        '<button class="btn btn-p mt" id="hw-next-btn">Suivant →</button>'
+      ) +
+    '</div></div>';
+
+  if (!checked) {
+    bindHWInputs();
+    $('hw-check-btn').onclick = function(){checkHWWordSentences(type, wordIdx);};
+    var lastInp = $('sent-'+(items.length-1));
+    if (lastInp) lastInp.addEventListener('keydown', function(e){if(e.key==='Enter')checkHWWordSentences(type, wordIdx);});
+  } else { $('hw-next-btn').onclick = hwNext; bindEnterAdvance(); }
+}
+
+function checkHWWordSentences(type, wordIdx) {
+  if (!S.hwStartTime) S.hwStartTime = new Date().toISOString();
+  S.hwResponseCount++;
+  var typeKey = type === 'adj' ? 'adj' : type;
+  var wordData = S.hwSession[typeKey][wordIdx];
+  var items = wordData.sentences;
+  var keyPrefix = type === 'verbs' ? 'sv' : type === 'nouns' ? 'sn' : 'sa';
+  var checkedKey = keyPrefix + wordIdx;
+  var strip = function(s){return s.normalize('NFD').replace(/[̀-ͯ]/g,'');};
+  var norm = function(s){return normApostrophe(s.trim().toLowerCase().normalize('NFC').replace(/\s+/g,' ').replace(/[.!?,;…]+$/,''));};
+  var match = function(a,b){return a===b || strip(a)===strip(b);};
+
+  var results = [], scoreCorrect = 0;
+  var card = getCard(wordData.id);
+
+  for (var si=0; si<items.length; si++) {
+    var typed = norm($('sent-'+si)?$('sent-'+si).value:'');
+    var expected = norm(items[si].fr);
+    var ok = match(typed, expected);
+    if (!ok && items[si].alt) {
+      for (var ai=0; ai<items[si].alt.length; ai++) {
+        if (match(typed, norm(items[si].alt[ai]))) { ok=true; break; }
+      }
+    }
+    if (ok) scoreCorrect++;
+    else card.errors.sentence = (card.errors.sentence||0) + 1;
+    results.push({typed:typed, correct:items[si].fr, ok:ok, en:items[si].en});
+  }
+
+  setCard(wordData.id, card);
+  S.hwChecked[checkedKey] = {items:results, score:{total:2,correct:scoreCorrect}};
+  S.hwResults.sentences[type+wordIdx] = {category:type, items:results, score:{total:2,correct:scoreCorrect}};
+  saveHWState(); syncHWFile(); render();
+}
+
+function hwNext() { S.hwStep++; if(S.hwStep>18) S.hwStep=19; saveHWState(); syncHWFile(); render(); }
+
+function bindEnterAdvance() {
+  setTimeout(function() {
+    var handler = function(e) {
+      if (e.key==='Enter') { document.removeEventListener('keydown',handler); hwNext(); }
+    };
+    document.addEventListener('keydown', handler);
+  }, 200);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   SUMMARY — session results + SRS update
+   ═══════════════════════════════════════════════════════════════ */
+
+function renderHWSummary() {
+  var totalScore = 0, totalCorrect = 0, i;
+  for (i=0; i<3; i++) {
+    var vc=S.hwChecked['v'+i]; if(vc){totalScore+=vc.score.total;totalCorrect+=vc.score.correct;}
+    var svc=S.hwChecked['sv'+i]; if(svc){totalScore+=svc.score.total;totalCorrect+=svc.score.correct;}
+    var nc=S.hwChecked['n'+i]; if(nc){totalScore+=nc.score.total;totalCorrect+=nc.score.correct;}
+    var snc=S.hwChecked['sn'+i]; if(snc){totalScore+=snc.score.total;totalCorrect+=snc.score.correct;}
+    var ac=S.hwChecked['a'+i]; if(ac){totalScore+=ac.score.total;totalCorrect+=ac.score.correct;}
+    var sac=S.hwChecked['sa'+i]; if(sac){totalScore+=sac.score.total;totalCorrect+=sac.score.correct;}
+  }
+
+  var pctScore = totalScore > 0 ? Math.round((totalCorrect/totalScore)*100) : 0;
+  var msg = 'Parfait !';
+  if (pctScore < 50) msg = 'Keep practicing — review the red ones.';
+  else if (pctScore < 80) msg = 'Good effort — getting there!';
+  else if (pctScore < 100) msg = 'Almost perfect!';
+
+  var errors = buildErrorSummaryHTML();
+  var srsUpdates = updateSRSAfterSession();
+  var durationStr = S.sessionStartTime ? formatDuration(Date.now()-S.sessionStartTime) : '';
+
+  app().innerHTML =
+    '<div class="dp"><div class="dp-body center" style="justify-content:flex-start;padding-top:2rem">' +
+      renderStreakBadge() +
+      '<div class="res-score" style="color:'+(pctScore>=80?'var(--ok)':pctScore>=50?'var(--accent)':'var(--err)')+';margin-top:.75rem">'+totalCorrect+' / '+totalScore+'</div>' +
+      '<div class="res-msg">'+msg+'</div>' +
+      (durationStr?'<div class="sub" style="margin-bottom:1rem">'+durationStr+'</div>':'') +
+
+      (srsUpdates ?
+        '<div style="text-align:left;width:100%;margin-bottom:1rem">' +
+          '<div class="hw-entry-label" style="color:var(--accent)">SRS Updates</div>' +
+          srsUpdates +
+        '</div>' : '') +
+
+      (errors ?
+        '<div style="text-align:left;width:100%;margin-bottom:1rem">' +
+          '<div class="hw-entry-label" style="color:var(--err)">Review These</div>' +
+          errors +
+        '</div>' : '') +
+
+      '<div class="col" style="gap:.75rem;width:100%">' +
+        '<button class="btn btn-ok" id="hw-save-btn" style="border-radius:12px;padding:1rem">Download Homework</button>' +
+        '<button class="btn btn-p" id="hw-redo-btn" style="border-radius:12px;padding:1rem">Redo These Words</button>' +
+        '<button class="btn btn-p" id="hw-new-btn" style="border-radius:12px;padding:1rem">New Adaptive Session</button>' +
+        '<button class="btn btn-g" id="hw-dash-btn" style="border-radius:12px;padding:1rem">← Dashboard</button>' +
+      '</div>' +
+      renderHWHistory() +
+    '</div></div>';
+
+  completeHW(); syncHWFile();
+  $('hw-save-btn').onclick = downloadHWFile;
+  $('hw-redo-btn').onclick = function() { redoSession(); };
+  $('hw-new-btn').onclick = function() { newSession(); };
+  $('hw-dash-btn').onclick = function() { S.screen='dashboard'; S.sessionStartTime=null; render(); };
+}
+
+function buildErrorSummaryHTML() {
+  var html = '', i;
+  for (i=0; i<3; i++) {
+    var vc = S.hwChecked['v'+i];
+    if (vc) {
+      var wrong = PRONOUNS.filter(function(p){return vc.forms[p]&&!vc.forms[p].ok;});
+      if (wrong.length > 0) {
+        html += '<div class="hw-summary-card" style="border-left:3px solid var(--err)"><div class="hw-summary-word">'+esc(S.hwWords.verbs[i])+'</div>' +
+          wrong.map(function(p){return '<div class="hw-summary-row"><span>'+esc(p)+': <span style="color:var(--err);text-decoration:line-through">'+esc(vc.forms[p].typed)+'</span></span><span style="color:var(--ok);font-weight:600">'+esc(vc.forms[p].correct)+'</span></div>';}).join('') + '</div>';
+      }
+    }
+  }
+  for (i=0; i<3; i++) {
+    var nc = S.hwChecked['n'+i];
+    if (nc) {
+      var nw = [];
+      if (nc.article&&!nc.article.ok) nw.push({label:'article',typed:nc.article.typed,correct:nc.article.correct});
+      if (nc.plural&&!nc.plural.ok) nw.push({label:'plural',typed:nc.plural.typed,correct:nc.plural.correct});
+      if (nw.length > 0) {
+        html += '<div class="hw-summary-card" style="border-left:3px solid var(--err)"><div class="hw-summary-word">'+esc(S.hwWords.nouns[i].w)+'</div>' +
+          nw.map(function(w){return '<div class="hw-summary-row"><span>'+w.label+': <span style="color:var(--err);text-decoration:line-through">'+esc(w.typed)+'</span></span><span style="color:var(--ok);font-weight:600">'+esc(w.correct)+'</span></div>';}).join('') + '</div>';
+      }
+    }
+  }
+  for (i=0; i<3; i++) {
+    var ac = S.hwChecked['a'+i];
+    if (ac) {
+      var aw = [];
+      if (ac.fem&&!ac.fem.ok) aw.push({label:'feminine',typed:ac.fem.typed,correct:ac.fem.correct});
+      if (ac.mascPl&&!ac.mascPl.ok) aw.push({label:'masc. plural',typed:ac.mascPl.typed,correct:ac.mascPl.correct});
+      if (ac.femPl&&!ac.femPl.ok) aw.push({label:'fem. plural',typed:ac.femPl.typed,correct:ac.femPl.correct});
+      if (aw.length > 0) {
+        html += '<div class="hw-summary-card" style="border-left:3px solid var(--err)"><div class="hw-summary-word">'+esc(S.hwWords.adjectives[i])+'</div>' +
+          aw.map(function(w){return '<div class="hw-summary-row"><span>'+w.label+': <span style="color:var(--err);text-decoration:line-through">'+esc(w.typed)+'</span></span><span style="color:var(--ok);font-weight:600">'+esc(w.correct)+'</span></div>';}).join('') + '</div>';
+      }
+    }
+  }
+  var sentGroups = [{prefix:'sv',key:'verbs',label:'Sentences'},{prefix:'sn',key:'nouns',label:'Phrases'},{prefix:'sa',key:'adj',label:'Phrases'}];
+  sentGroups.forEach(function(sg) {
+    for (var si=0; si<3; si++) {
+      var sc = S.hwChecked[sg.prefix+si];
+      if (sc && sc.items) {
+        var sw = sc.items.filter(function(it){return !it.ok;});
+        if (sw.length > 0) {
+          var wn = S.hwSession[sg.key][si].word;
+          html += '<div class="hw-summary-card" style="border-left:3px solid var(--err)"><div class="hw-summary-word">'+esc(wn)+' — '+sg.label+'</div>' +
+            sw.map(function(w){return '<div class="hw-summary-row"><span>'+esc(w.en)+': <span style="color:var(--err);text-decoration:line-through">'+esc(w.typed)+'</span></span><span style="color:var(--ok);font-weight:600">'+esc(w.correct)+'</span></div>';}).join('') + '</div>';
+        }
+      }
+    }
+  });
+  return html;
+}
+
+function updateSRSAfterSession() {
+  var html = '', types = ['verbs','nouns','adj'];
+  types.forEach(function(typeKey) {
+    for (var i=0; i<3; i++) {
+      var wordData = S.hwSession[typeKey][i];
+      if (!wordData) continue;
+      var correct=0, total=0;
+      var checkKey = typeKey==='verbs'?'v':typeKey==='nouns'?'n':'a';
+      var sentKey = typeKey==='verbs'?'sv':typeKey==='nouns'?'sn':'sa';
+      var ck = S.hwChecked[checkKey+i];
+      if (ck) { correct+=ck.score.correct; total+=ck.score.total; }
+      var sk = S.hwChecked[sentKey+i];
+      if (sk) { correct+=sk.score.correct; total+=sk.score.total; }
+      if (total === 0) continue;
+
+      var pct = correct/total;
+      var grade = SRS.gradeFromPct(pct);
+      var card = getCard(wordData.id);
+      var oldInterval = card.interval;
+      SRS.update(card, grade);
+      setCard(wordData.id, card);
+
+      var arrow = card.interval > oldInterval ? '↑' : card.interval < oldInterval ? '↓' : '→';
+      var color = grade >= 4 ? 'var(--ok)' : grade >= 3 ? 'var(--accent)' : 'var(--err)';
+      html += '<div class="hw-summary-row">' +
+        '<span style="font-weight:600">'+esc(wordData.word)+'</span>' +
+        '<span style="color:'+color+'">'+correct+'/'+total+'</span>' +
+        '<span style="color:var(--text-dim)">'+arrow+' '+card.interval+'d</span>' +
+      '</div>';
+    }
+  });
+  return html ? '<div class="hw-summary-card" style="border-left:3px solid var(--accent)">'+html+'</div>' : '';
+}
+
+function redoSession() {
+  S.hwStep = 0;
+  S.hwResults = {verbs:[],nouns:[],adjectives:[],sentences:[]};
+  S.hwChecked = {};
+  S.hwResponseCount = 0;
+  S.hwStartTime = null;
+  S.screen = 'hw';
+  render();
+}
+
+function newSession() {
+  var session = buildSession();
+  S.hwSession = session;
+  S.hwWords = {
+    verbs: session.verbs.map(function(w){return w.word;}),
+    nouns: session.nouns.map(function(w){return {w:w.word, g:w.gender};}),
+    adjectives: session.adj.map(function(w){return w.word;})
+  };
+  S.hwStep = 0;
+  S.hwResults = {verbs:[],nouns:[],adjectives:[],sentences:[]};
+  S.hwChecked = {};
+  S.hwResponseCount = 0;
+  S.hwStartTime = null;
+  S.screen = 'hw';
+  render();
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   HOMEWORK FILE — markdown for Sir Saif
+   ═══════════════════════════════════════════════════════════════ */
+
+function hwFileName() {
+  var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var d = new Date();
+  var completed = Object.values(S.progress.hw||{}).filter(function(h){return h.complete;}).length;
+  return 'homework/Homework '+(completed+1)+' ('+months[d.getMonth()]+' '+d.getDate()+').md';
+}
+
+function generateHWMarkdown() {
+  var md = '';
+  for (var i=0; i<3; i++) {
+    var vc = S.hwChecked['v'+i];
+    var verb = S.hwWords.verbs[i];
+    var conj = French.conjugateER(verb);
+    md += '### '+verb+'\n\n';
+    PRONOUNS.forEach(function(p, pi) {
+      var lbl = pronounLabel(p, conj[p]);
+      var val = vc&&vc.forms[p] ? vc.forms[p].typed : '';
+      md += '|'+lbl+'|'+(val||'')+'|\n';
+      if (pi===0) md += '|---|---|\n';
+    });
+    md += '\n';
+  }
+  for (var i=0; i<3; i++) {
+    var nc = S.hwChecked['n'+i];
+    var noun = S.hwWords.nouns[i];
+    var gLabel = noun.g==='f'?'feminine':'masculine';
+    md += '### '+noun.w+'\n\n|'+gLabel+'|'+(nc&&nc.article?nc.article.typed:'')+'|\n|---|---|\n|plural|'+(nc&&nc.plural?nc.plural.typed:'')+'|\n\n';
+  }
+  for (var i=0; i<3; i++) {
+    var ac = S.hwChecked['a'+i];
+    var adj = S.hwWords.adjectives[i];
+    md += '### '+adj+'\n\n|masculine|'+adj+'|\n|---|---|\n|feminine|'+(ac&&ac.fem?ac.fem.typed:'')+'|\n|masc. plural|'+(ac&&ac.mascPl?ac.mascPl.typed:'')+'|\n|fem. plural|'+(ac&&ac.femPl?ac.femPl.typed:'')+'|\n\n';
+  }
+  var sentCats = [{name:'Verb Sentences',key:'verbs',prefix:'sv'},{name:'Noun Phrases',key:'nouns',prefix:'sn'},{name:'Adjective Phrases',key:'adj',prefix:'sa'}];
+  sentCats.forEach(function(cat) {
+    md += '### '+cat.name+'\n\n|English|French|\n|---|---|\n';
+    for (var wi=0; wi<3; wi++) {
+      var sc = S.hwChecked[cat.prefix+wi];
+      var wordData = S.hwSession[cat.key][wi];
+      if (wordData && wordData.sentences) {
+        wordData.sentences.forEach(function(sent, si) {
+          var val = sc&&sc.items&&sc.items[si] ? sc.items[si].typed : '';
+          md += '|'+sent.en+'|'+val+'|\n';
+        });
+      }
+    }
+    md += '\n';
+  });
+  return md;
+}
+
+function downloadHWFile() {
+  var md = generateHWMarkdown();
+  var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var d = new Date();
+  var completed = Object.values(S.progress.hw||{}).filter(function(h){return h.complete;}).length;
+  var name = 'Homework '+completed+' ('+months[d.getMonth()]+' '+d.getDate()+').md';
+  var blob = new Blob([md], {type:'text/markdown'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a'); a.href=url; a.download=name;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+async function syncHWFile() {
+  if (!S.gh) return;
+  try { var md = generateHWMarkdown(); await S.gh.put(hwFileName(), md, 'HW sync — '+todayStr()); }
+  catch(e) { console.error('HW file sync failed:', e); }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   SAVE / SYNC
+   ═══════════════════════════════════════════════════════════════ */
+
+function saveHWState() {
+  var today = todayStr();
+  if (!S.progress.hw) S.progress.hw = {};
+  S.progress.hw[today] = {
+    startedAt: S.hwStartTime,
+    completedAt: null,
+    responses: S.hwResponseCount,
+    wordIds: S.hwSession ? {
+      verbs: S.hwSession.verbs.map(function(w){return w.id;}),
+      nouns: S.hwSession.nouns.map(function(w){return w.id;}),
+      adj: S.hwSession.adj.map(function(w){return w.id;})
+    } : null,
+    results: S.hwResults,
+    checked: S.hwChecked,
+    lastStep: S.hwStep,
+    complete: false
+  };
+  S.progress.updated = new Date().toISOString();
+  localStorage.setItem('fd2_progress', JSON.stringify(S.progress));
+}
+
+function completeHW() {
+  var today = todayStr();
+  if (!S.progress.hw) S.progress.hw = {};
+  var hw = S.progress.hw[today] || {};
+  hw.completedAt = new Date().toISOString();
+  hw.complete = true;
+  hw.startedAt = S.hwStartTime;
+  hw.responses = S.hwResponseCount;
+  hw.wordIds = S.hwSession ? {
+    verbs: S.hwSession.verbs.map(function(w){return w.id;}),
+    nouns: S.hwSession.nouns.map(function(w){return w.id;}),
+    adj: S.hwSession.adj.map(function(w){return w.id;})
+  } : null;
+  hw.results = S.hwResults;
+  hw.checked = S.hwChecked;
+
+  var total=0, correct=0;
+  for (var i=0; i<3; i++) {
+    var vc=S.hwChecked['v'+i]; if(vc){total+=vc.score.total;correct+=vc.score.correct;}
+    var svc=S.hwChecked['sv'+i]; if(svc){total+=svc.score.total;correct+=svc.score.correct;}
+    var nc=S.hwChecked['n'+i]; if(nc){total+=nc.score.total;correct+=nc.score.correct;}
+    var snc=S.hwChecked['sn'+i]; if(snc){total+=snc.score.total;correct+=snc.score.correct;}
+    var ac=S.hwChecked['a'+i]; if(ac){total+=ac.score.total;correct+=ac.score.correct;}
+    var sac=S.hwChecked['sa'+i]; if(sac){total+=sac.score.total;correct+=sac.score.correct;}
+  }
+  hw.score = {total:total, correct:correct};
+
+  var stats = S.progress.stats;
+  stats.questions = (stats.questions||0) + total;
+  stats.correct = (stats.correct||0) + correct;
+  var td = todayStr();
+  if (stats.lastDate !== td) {
+    if (stats.lastDate) {
+      var diff = Math.floor((new Date(td+'T00:00:00') - new Date(stats.lastDate+'T00:00:00')) / 86400000);
+      stats.streak = diff <= 1 ? (stats.streak||0) + 1 : 1;
+    } else { stats.streak = 1; }
+    stats.lastDate = td;
+    if ((stats.streak||0) > (stats.best||0)) stats.best = stats.streak;
+  }
+
+  S.progress.hw[today] = hw;
+  S.progress.updated = new Date().toISOString();
+  localStorage.setItem('fd2_progress', JSON.stringify(S.progress));
+  syncToGitHub();
+}
+
+async function syncToGitHub() {
+  if (!S.gh) return;
+  try { await S.gh.put('DRILL-PROGRESS.json', JSON.stringify(S.progress,null,2), 'Drill sync — '+todayStr()); }
+  catch(e) { console.error('Sync failed:', e); }
+}
+
+window.addEventListener('beforeunload', function() {
+  if (S.progress) localStorage.setItem('fd2_progress', JSON.stringify(S.progress));
+});
+
+
+/* ═══════════════════════════════════════════════════════════════
+   INIT
+   ═══════════════════════════════════════════════════════════════ */
+
+async function init() {
+  var storedToken = localStorage.getItem('fd2_token');
+  if (storedToken) {
+    try {
+      var gh = new GH(storedToken);
+      var raw = await gh.get('DRILL-PROGRESS.json');
+      S.gh = gh;
+      S.progress = raw ? JSON.parse(raw) : defaultProgress();
+      var local = localStorage.getItem('fd2_progress');
+      if (local) { var lp = JSON.parse(local); if (lp.updated && (!S.progress.updated || lp.updated > S.progress.updated)) S.progress = lp; }
+      S.screen = 'dashboard';
+      render();
+      return;
+    } catch(e) { localStorage.removeItem('fd2_token'); }
+  }
+  var hasSetup = localStorage.getItem('fd2_setup');
+  if (hasSetup) { S.screen = 'login'; }
+  else {
+    try { var gh = new GH(null); var raw = await gh.get('config.enc'); S.screen = raw ? 'login' : 'setup'; }
+    catch(e) { S.screen = 'setup'; }
+  }
+  render();
+}
+
+init();
+</script>
+</body>
+</html>
