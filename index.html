@@ -206,7 +206,7 @@ body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background
    CONFIG
    ═══════════════════════════════════════════════════════════════ */
 
-const CFG = { owner: 'syedalimoiz', repo: 'french-drills-v2' };
+const CFG = { owner: 'syedalimoiz', repo: 'french-drills' };
 const ACCENTS = ['é','è','ê','ë','à','â','î','ï','ô','ù','û','ç'];
 
 /* ═══════════════════════════════════════════════════════════════
@@ -1038,7 +1038,7 @@ async function doSetup() {
     var enc = await Cry.encrypt(pw1, pat);
     await gh.put('config.enc', JSON.stringify(enc), 'Setup: encrypted config');
     var prog = defaultProgress(); prog.updated = new Date().toISOString();
-    await gh.put('DRILL-PROGRESS.json', JSON.stringify(prog,null,2), 'Setup: initial progress');
+    await gh.put('V2-PROGRESS.json', JSON.stringify(prog,null,2), 'Setup: initial progress');
     localStorage.setItem('fd2_token', pat);
     localStorage.setItem('fd2_setup', '1');
     S.gh = gh; S.progress = prog; S.error = null;
@@ -1055,7 +1055,7 @@ function renderLogin() {
       '<div class="center mb">' +
         '<div class="auth-logo">🇫🇷</div>' +
         '<div class="auth-title serif">French Drills V2</div>' +
-        '<div class="auth-sub">Enter your password to continue</div>' +
+        '<div class="auth-sub">Same password as V1</div>' +
       '</div>' +
       (S.error ? '<div class="error-msg">'+esc(S.error)+'</div>' : '') +
       '<div class="card">' +
@@ -1078,12 +1078,12 @@ async function doLogin() {
   try {
     var gh = new GH(null);
     var raw = await gh.get('config.enc');
-    if (!raw) { S.error='No config found. Need to set up again.'; localStorage.removeItem('fd2_setup'); S.screen='setup'; render(); return; }
+    if (!raw) { S.error='No config found in the french-drills repo. Make sure V1 is set up first.'; render(); return; }
     var bundle = JSON.parse(raw), pat;
     try { pat = await Cry.decrypt(pw, bundle); } catch(e) { S.error='Wrong password.'; render(); return; }
     gh.token = pat;
     if ($('remember').checked) localStorage.setItem('fd2_token', pat);
-    var progRaw = await gh.get('DRILL-PROGRESS.json');
+    var progRaw = await gh.get('V2-PROGRESS.json');
     var prog = progRaw ? JSON.parse(progRaw) : defaultProgress();
     S.gh = gh; S.progress = prog; S.error = null;
     var local = localStorage.getItem('fd2_progress');
@@ -1745,7 +1745,7 @@ function hwFileName() {
   var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   var d = new Date();
   var completed = Object.values(S.progress.hw||{}).filter(function(h){return h.complete;}).length;
-  return 'homework/Homework '+(completed+1)+' ('+months[d.getMonth()]+' '+d.getDate()+').md';
+  return 'homework-v2/Homework '+(completed+1)+' ('+months[d.getMonth()]+' '+d.getDate()+').md';
 }
 
 function generateHWMarkdown() {
@@ -1885,7 +1885,7 @@ function completeHW() {
 
 async function syncToGitHub() {
   if (!S.gh) return;
-  try { await S.gh.put('DRILL-PROGRESS.json', JSON.stringify(S.progress,null,2), 'Drill sync — '+todayStr()); }
+  try { await S.gh.put('V2-PROGRESS.json', JSON.stringify(S.progress,null,2), 'Drill sync — '+todayStr()); }
   catch(e) { console.error('Sync failed:', e); }
 }
 
@@ -1903,7 +1903,7 @@ async function init() {
   if (storedToken) {
     try {
       var gh = new GH(storedToken);
-      var raw = await gh.get('DRILL-PROGRESS.json');
+      var raw = await gh.get('V2-PROGRESS.json');
       S.gh = gh;
       S.progress = raw ? JSON.parse(raw) : defaultProgress();
       var local = localStorage.getItem('fd2_progress');
@@ -1913,12 +1913,7 @@ async function init() {
       return;
     } catch(e) { localStorage.removeItem('fd2_token'); }
   }
-  var hasSetup = localStorage.getItem('fd2_setup');
-  if (hasSetup) { S.screen = 'login'; }
-  else {
-    try { var gh = new GH(null); var raw = await gh.get('config.enc'); S.screen = raw ? 'login' : 'setup'; }
-    catch(e) { S.screen = 'setup'; }
-  }
+  S.screen = 'login';
   render();
 }
 
