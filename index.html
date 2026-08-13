@@ -574,6 +574,12 @@ function pickWords(type, count) {
   dueWithErrors.sort(function(a,b) {
     return SRS.errorWeight(getCard(b.id)) - SRS.errorWeight(getCard(a.id));
   });
+  fresh.sort(function(a, b) {
+    var order = INTRO_ORDER[a.type];
+    if (!order) return 0;
+    var ai = order.indexOf(a.setIdx), bi = order.indexOf(b.setIdx);
+    return ai !== bi ? ai - bi : a.wordIdx - b.wordIdx;
+  });
   var result = dueWithErrors.slice(0, count);
   if (result.length < count) result = result.concat(fresh.slice(0, count - result.length));
   if (result.length < count) result = result.concat(dueClean.slice(0, count - result.length));
@@ -586,6 +592,13 @@ function pickWords(type, count) {
   }
   return result;
 }
+
+/* Introduction order by difficulty — irregular adj (beau/nouveau/vieux) come LAST */
+const INTRO_ORDER = {
+  verb: [0,1,2,7,3,4,8,9,5,6,10,11,12,13],
+  noun: [0,1,2,7,3,8,9,4,5,6,10,11,12,13],
+  adj:  [0,1,2,7,8,9,5,12,6,10,11,13,3,4]
+};
 
 function buildSession() {
   return { verbs: pickWords('verb',3), nouns: pickWords('noun',3), adj: pickWords('adj',3) };
@@ -732,11 +745,17 @@ function renderLesson(key) {
     if (S.lessonQueue.length > 0) { renderLesson(S.lessonQueue.shift()); }
     else { render(); }
   };
-  setTimeout(function() {
-    document.addEventListener('keydown', function handler(e) {
-      if (e.key === 'Enter') { document.removeEventListener('keydown', handler); $('lesson-ok-btn').click(); }
-    });
-  }, 300);
+  var lessonArmed = false;
+  document.addEventListener('keyup', function onUp(e) {
+    if (e.key === 'Enter') { lessonArmed = true; document.removeEventListener('keyup', onUp); }
+  });
+  setTimeout(function() { lessonArmed = true; }, 600);
+  document.addEventListener('keydown', function handler(e) {
+    if (e.key === 'Enter' && lessonArmed && !e.repeat) {
+      document.removeEventListener('keydown', handler);
+      $('lesson-ok-btn').click();
+    }
+  });
 }
 
 var _hwActiveInput = null;
@@ -1548,12 +1567,18 @@ function hwNext() {
 }
 
 function bindEnterAdvance() {
-  setTimeout(function() {
-    var handler = function(e) {
-      if (e.key==='Enter') { document.removeEventListener('keydown',handler); hwNext(); }
-    };
-    document.addEventListener('keydown', handler);
-  }, 200);
+  var armed = false;
+  document.addEventListener('keyup', function onUp(e) {
+    if (e.key === 'Enter') { armed = true; document.removeEventListener('keyup', onUp); }
+  });
+  setTimeout(function() { armed = true; }, 600);
+  var handler = function(e) {
+    if (e.key === 'Enter' && armed && !e.repeat) {
+      document.removeEventListener('keydown', handler);
+      hwNext();
+    }
+  };
+  document.addEventListener('keydown', handler);
 }
 
 
