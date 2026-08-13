@@ -609,7 +609,135 @@ const S = {
   hwResponseCount: 0,
   hwStartTime: null,
   sessionStartTime: null,
+  sessionErrors: {},
+  sessionMistakes: {},
+  lessonQueue: [],
+  shownLessons: {},
 };
+
+
+/* ═══════════════════════════════════════════════════════════════
+   LESSONS — mid-session teaching interventions
+   ═══════════════════════════════════════════════════════════════ */
+
+const LESSONS = {
+  conj_je: {
+    title: "je conjugation",
+    rule: "For -er verbs with je: drop -er, add -e.\nBefore a vowel sound: je becomes j' (j'aime, j'écoute).",
+    examples: ["parler → je parle", "aimer → j'aime", "écouter → j'écoute"]
+  },
+  conj_tu: {
+    title: "tu conjugation",
+    rule: "For -er verbs with tu: drop -er, add -es.\nAlways ends in -es — no exceptions for -er verbs.",
+    examples: ["parler → tu parles", "chanter → tu chantes", "aimer → tu aimes"]
+  },
+  conj_il: {
+    title: "il/elle/on conjugation",
+    rule: "For -er verbs with il/elle/on: drop -er, add -e.\nSame ending as je — both end in -e.",
+    examples: ["parler → il parle", "donner → elle donne", "marcher → on marche"]
+  },
+  conj_nous: {
+    title: "nous conjugation",
+    rule: "For -er verbs with nous: drop -er, add -ons.\n-ger verbs: keep the e before -ons → nous mangeons\n-cer verbs: c becomes ç before -ons → nous commençons",
+    examples: ["parler → nous parlons", "manger → nous mangeons", "commencer → nous commençons"]
+  },
+  conj_vous: {
+    title: "vous conjugation",
+    rule: "For -er verbs with vous: drop -er, add -ez.\nAlways ends in -ez — no exceptions for -er verbs.",
+    examples: ["parler → vous parlez", "donner → vous donnez", "manger → vous mangez"]
+  },
+  conj_ils: {
+    title: "ils/elles conjugation",
+    rule: "For -er verbs with ils/elles: drop -er, add -ent.\nThe -ent ending is SILENT — ils parlent sounds like il parle.",
+    examples: ["parler → ils parlent", "marcher → elles marchent", "donner → ils donnent"]
+  },
+  article: {
+    title: "Articles: un / une",
+    rule: "Every French noun has a gender you must memorize.\nMasculine nouns use un.\nFeminine nouns use une.\nWrite the full phrase: un chat, une maison.",
+    examples: ["un chat (m)", "une maison (f)", "un livre (m)", "une table (f)", "un garçon (m)", "une fille (f)"]
+  },
+  plural: {
+    title: "Plural nouns",
+    rule: "Most nouns: add -s (chat → chats)\n-eau / -au nouns: add -x (gâteau → gâteaux)\n-al nouns: change to -aux (animal → animaux)\n-s / -x / -z nouns: no change (pays → pays)\nAlways write des before the plural: des chats.",
+    examples: ["chat → des chats", "gâteau → des gâteaux", "animal → des animaux", "pays → des pays"]
+  },
+  feminine: {
+    title: "Feminine adjectives",
+    rule: "Most adjectives: add -e (grand → grande)\n-eux → -euse (heureux → heureuse)\n-if → -ive (actif → active)\n-er → -ère (léger → légère)\n-el → -elle (naturel → naturelle)\nIrregulars you must memorize:\nbeau→belle, nouveau→nouvelle, vieux→vieille,\nblanc→blanche, long→longue, gros→grosse,\ndoux→douce, faux→fausse, gentil→gentille,\nfrais→fraîche, sec→sèche, favori→favorite.",
+    examples: ["grand → grande", "heureux → heureuse", "beau → belle", "nouveau → nouvelle"]
+  },
+  mascPlural: {
+    title: "Masculine plural adjectives",
+    rule: "Most adjectives: add -s (grand → grands)\n-eau adjectives: add -x (beau → beaux, nouveau → nouveaux)\n-al adjectives: change to -aux (loyal → loyaux, normal → normaux)\n-s / -x adjectives: no change (gros → gros, heureux → heureux)",
+    examples: ["grand → grands", "beau → beaux", "normal → normaux", "gros → gros"]
+  },
+  femPlural: {
+    title: "Feminine plural adjectives",
+    rule: "Two steps: first make it feminine, then add -s.\ngrand → grande → grandes\nbeau → belle → belles\nactif → active → actives",
+    examples: ["grand → grande → grandes", "beau → belle → belles", "actif → active → actives", "heureux → heureuse → heureuses"]
+  }
+};
+
+function trackSessionError(key, typed, correct, word) {
+  S.sessionErrors[key] = (S.sessionErrors[key] || 0) + 1;
+  if (!S.sessionMistakes[key]) S.sessionMistakes[key] = [];
+  S.sessionMistakes[key].push({typed:typed, correct:correct, word:word});
+  if (S.sessionErrors[key] >= 2 && !S.shownLessons[key]) {
+    S.shownLessons[key] = true;
+    S.lessonQueue.push(key);
+  }
+}
+
+function renderLesson(key) {
+  var lesson = LESSONS[key];
+  if (!lesson) { render(); return; }
+  var mistakes = (S.sessionMistakes[key] || []).slice(-4);
+  var mistakesHTML = mistakes.map(function(m) {
+    return '<div style="display:flex;align-items:baseline;gap:.75rem;padding:.5rem 0;border-bottom:1px solid var(--line)">' +
+      '<span style="font-weight:600;min-width:4rem">' + esc(m.word) + '</span>' +
+      '<span style="color:var(--err);text-decoration:line-through">' + esc(m.typed || '(empty)') + '</span>' +
+      '<span style="color:var(--text-dim)">→</span>' +
+      '<span style="color:var(--ok);font-weight:600">' + esc(m.correct) + '</span>' +
+    '</div>';
+  }).join('');
+  var ruleHTML = esc(lesson.rule).replace(/\n/g, '<br>');
+  var examplesHTML = lesson.examples.map(function(ex) {
+    return '<div style="padding:.375rem 0;font-family:Georgia,serif;font-size:1.0625rem">' + esc(ex) + '</div>';
+  }).join('');
+
+  app().innerHTML =
+    '<div class="dp"><div class="dp-body" style="justify-content:flex-start;padding-top:2rem">' +
+      '<div class="center mb">' +
+        '<div style="font-size:2.5rem;margin-bottom:.5rem">💡</div>' +
+        '<div class="hdr" style="font-size:1.5rem">Quick Tip</div>' +
+        '<div class="sub mt-sm" style="font-size:1.125rem">' + esc(lesson.title) + '</div>' +
+      '</div>' +
+      '<div class="card" style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:1.25rem;box-shadow:var(--card-shadow)">' +
+        '<div class="hw-entry-label" style="color:var(--accent);margin-bottom:.5rem">Rule</div>' +
+        '<div style="font-size:.9375rem;line-height:1.7">' + ruleHTML + '</div>' +
+      '</div>' +
+      '<div class="card" style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:1.25rem;box-shadow:var(--card-shadow)">' +
+        '<div class="hw-entry-label" style="color:var(--ok);margin-bottom:.5rem">Examples</div>' +
+        examplesHTML +
+      '</div>' +
+      (mistakesHTML ?
+        '<div class="card" style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:1.25rem;box-shadow:var(--card-shadow)">' +
+          '<div class="hw-entry-label" style="color:var(--err);margin-bottom:.5rem">Your Mistakes</div>' +
+          mistakesHTML +
+        '</div>' : '') +
+      '<button class="btn btn-p mt" id="lesson-ok-btn" style="border-radius:50px">Got it →</button>' +
+    '</div></div>';
+
+  $('lesson-ok-btn').onclick = function() {
+    if (S.lessonQueue.length > 0) { renderLesson(S.lessonQueue.shift()); }
+    else { render(); }
+  };
+  setTimeout(function() {
+    document.addEventListener('keydown', function handler(e) {
+      if (e.key === 'Enter') { document.removeEventListener('keydown', handler); $('lesson-ok-btn').click(); }
+    });
+  }, 300);
+}
 
 var _hwActiveInput = null;
 var $ = function(id){return document.getElementById(id);};
@@ -1005,6 +1133,10 @@ function startHWMode() {
     S.hwChecked = {};
     S.hwResponseCount = 0;
     S.hwStartTime = null;
+    S.sessionErrors = {};
+    S.sessionMistakes = {};
+    S.lessonQueue = [];
+    S.shownLessons = {};
   }
   render();
 }
@@ -1151,6 +1283,7 @@ function checkHWVerb(idx) {
     else {
       var errKey = ['je','tu','il','nous','vous','ils'][i];
       card.errors[errKey] = (card.errors[errKey]||0) + 1;
+      trackSessionError('conj_' + errKey, typed, displayCorrect, verb);
     }
     forms[p] = {typed:typed, correct:displayCorrect, ok:ok};
   });
@@ -1223,8 +1356,8 @@ function checkHWNoun(idx) {
 
   var wordData = S.hwSession.nouns[idx];
   var card = getCard(wordData.id);
-  if (!okArticle) card.errors.article = (card.errors.article||0) + 1;
-  if (!okPlural) card.errors.plural = (card.errors.plural||0) + 1;
+  if (!okArticle) { card.errors.article = (card.errors.article||0) + 1; trackSessionError('article', typedArticle, correctArticle, noun.w); }
+  if (!okPlural) { card.errors.plural = (card.errors.plural||0) + 1; trackSessionError('plural', typedPlural, correctPlural, noun.w); }
   setCard(wordData.id, card);
 
   S.hwChecked['n'+idx] = {
@@ -1304,9 +1437,9 @@ function checkHWAdj(idx) {
 
   var wordData = S.hwSession.adj[idx];
   var card = getCard(wordData.id);
-  if (!okFem) card.errors.feminine = (card.errors.feminine||0) + 1;
-  if (!okMascPl) card.errors.mascPlural = (card.errors.mascPlural||0) + 1;
-  if (!okFemPl) card.errors.femPlural = (card.errors.femPlural||0) + 1;
+  if (!okFem) { card.errors.feminine = (card.errors.feminine||0) + 1; trackSessionError('feminine', typedFem, correctFem, adj); }
+  if (!okMascPl) { card.errors.mascPlural = (card.errors.mascPlural||0) + 1; trackSessionError('mascPlural', typedMascPl, correctMascPl, adj); }
+  if (!okFemPl) { card.errors.femPlural = (card.errors.femPlural||0) + 1; trackSessionError('femPlural', typedFemPl, correctFemPl, adj); }
   setCard(wordData.id, card);
 
   S.hwChecked['a'+idx] = {
@@ -1409,7 +1542,12 @@ function checkHWWordSentences(type, wordIdx) {
   saveHWState(); syncHWFile(); render();
 }
 
-function hwNext() { S.hwStep++; if(S.hwStep>18) S.hwStep=19; saveHWState(); syncHWFile(); render(); }
+function hwNext() {
+  S.hwStep++; if(S.hwStep>18) S.hwStep=19;
+  saveHWState(); syncHWFile();
+  if (S.lessonQueue.length > 0) { renderLesson(S.lessonQueue.shift()); return; }
+  render();
+}
 
 function bindEnterAdvance() {
   setTimeout(function() {
@@ -1575,6 +1713,7 @@ function redoSession() {
   S.hwChecked = {};
   S.hwResponseCount = 0;
   S.hwStartTime = null;
+  S.sessionErrors = {}; S.sessionMistakes = {}; S.lessonQueue = []; S.shownLessons = {};
   S.screen = 'hw';
   render();
 }
@@ -1592,6 +1731,7 @@ function newSession() {
   S.hwChecked = {};
   S.hwResponseCount = 0;
   S.hwStartTime = null;
+  S.sessionErrors = {}; S.sessionMistakes = {}; S.lessonQueue = []; S.shownLessons = {};
   S.screen = 'hw';
   render();
 }
