@@ -991,7 +991,7 @@ function renderDashboard() {
 }
 
 function doLock() {
-  localStorage.removeItem('fd2_token');
+  localStorage.removeItem('fdv2_token');
   S.gh = null; S.progress = null; S.screen = 'login'; S.error = null;
   render();
 }
@@ -1037,7 +1037,7 @@ async function doSetup() {
     await gh.put('config.enc', JSON.stringify(enc), 'Setup: encrypted config');
     var prog = defaultProgress(); prog.updated = new Date().toISOString();
     await gh.put('V2-PROGRESS.json', JSON.stringify(prog,null,2), 'Setup: initial progress');
-    localStorage.setItem('fd2_token', pat);
+    localStorage.setItem('fdv2_token', pat);
     localStorage.setItem('fd2_setup', '1');
     S.gh = gh; S.progress = prog; S.error = null;
     S.screen = 'dashboard'; render();
@@ -1080,11 +1080,11 @@ async function doLogin() {
     var bundle = JSON.parse(raw), pat;
     try { pat = await Cry.decrypt(pw, bundle); } catch(e) { S.error='Wrong password.'; render(); return; }
     gh.token = pat;
-    if ($('remember').checked) localStorage.setItem('fd2_token', pat);
+    if ($('remember').checked) localStorage.setItem('fdv2_token', pat);
     var progRaw = await gh.get('V2-PROGRESS.json');
     var prog = progRaw ? JSON.parse(progRaw) : defaultProgress();
     S.gh = gh; S.progress = prog; S.error = null;
-    var local = localStorage.getItem('fd2_progress');
+    var local = localStorage.getItem('fdv2_progress');
     if (local) { var lp = JSON.parse(local); if (lp.updated && (!S.progress.updated || lp.updated > S.progress.updated)) S.progress = lp; }
     S.screen = 'dashboard'; render();
   } catch(e) { S.error = 'Login failed: '+e.message; render(); }
@@ -1832,7 +1832,7 @@ function saveHWState() {
     complete: false
   };
   S.progress.updated = new Date().toISOString();
-  localStorage.setItem('fd2_progress', JSON.stringify(S.progress));
+  localStorage.setItem('fdv2_progress', JSON.stringify(S.progress));
 }
 
 function completeHW() {
@@ -1877,7 +1877,7 @@ function completeHW() {
 
   S.progress.hw[today] = hw;
   S.progress.updated = new Date().toISOString();
-  localStorage.setItem('fd2_progress', JSON.stringify(S.progress));
+  localStorage.setItem('fdv2_progress', JSON.stringify(S.progress));
   syncToGitHub();
 }
 
@@ -1888,7 +1888,7 @@ async function syncToGitHub() {
 }
 
 window.addEventListener('beforeunload', function() {
-  if (S.progress) localStorage.setItem('fd2_progress', JSON.stringify(S.progress));
+  if (S.progress) localStorage.setItem('fdv2_progress', JSON.stringify(S.progress));
 });
 
 
@@ -1897,19 +1897,19 @@ window.addEventListener('beforeunload', function() {
    ═══════════════════════════════════════════════════════════════ */
 
 async function init() {
-  var storedToken = localStorage.getItem('fd2_token');
+  var storedToken = localStorage.getItem('fdv2_token');
   if (storedToken) {
     try {
       var gh = new GH(storedToken);
       var raw = await gh.get('V2-PROGRESS.json');
       S.gh = gh;
       S.progress = raw ? JSON.parse(raw) : defaultProgress();
-      var local = localStorage.getItem('fd2_progress');
+      var local = localStorage.getItem('fdv2_progress');
       if (local) { var lp = JSON.parse(local); if (lp.updated && (!S.progress.updated || lp.updated > S.progress.updated)) S.progress = lp; }
       S.screen = 'dashboard';
       render();
       return;
-    } catch(e) { localStorage.removeItem('fd2_token'); }
+    } catch(e) { localStorage.removeItem('fdv2_token'); }
   }
   S.screen = 'login';
   render();
