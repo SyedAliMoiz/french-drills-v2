@@ -563,20 +563,20 @@ function shuffle(arr) {
 
 function pickWords(type, count) {
   var words = ALL_WORDS.filter(function(w){return w.type === type;});
-  var due = [], fresh = [];
+  var dueWithErrors = [], dueClean = [], fresh = [];
   for (var i=0; i<words.length; i++) {
     var w = words[i], card = getCard(w.id);
-    if (!card.lastReview) fresh.push(w);
-    else if (SRS.isDue(card)) due.push(w);
+    if (!card.lastReview) { fresh.push(w); continue; }
+    if (!SRS.isDue(card)) continue;
+    if (SRS.errorWeight(card) > 0) dueWithErrors.push(w);
+    else dueClean.push(w);
   }
-  due.sort(function(a,b) {
-    var ca = getCard(a.id), cb = getCard(b.id);
-    return (SRS.daysOverdue(cb) + SRS.errorWeight(cb)) - (SRS.daysOverdue(ca) + SRS.errorWeight(ca));
+  dueWithErrors.sort(function(a,b) {
+    return SRS.errorWeight(getCard(b.id)) - SRS.errorWeight(getCard(a.id));
   });
-  var result = due.slice(0, count);
-  if (result.length < count) {
-    result = result.concat(fresh.slice(0, count - result.length));
-  }
+  var result = dueWithErrors.slice(0, count);
+  if (result.length < count) result = result.concat(fresh.slice(0, count - result.length));
+  if (result.length < count) result = result.concat(dueClean.slice(0, count - result.length));
   if (result.length < count) {
     var used = {};
     result.forEach(function(w){used[w.id]=true;});
