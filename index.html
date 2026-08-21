@@ -210,7 +210,9 @@ const CFG = { owner: 'syedalimoiz', repo: 'french-drills' };
 const ACCENTS = ['é','è','ê','ë','à','â','î','ï','ô','ù','û','ç'];
 
 /* ═══════════════════════════════════════════════════════════════
-   WORD BANK — 14 progressive sets, 126 words, 252 sentences
+   WORD BANK — 18 progressive sets, 162 words, 324 sentences
+   Sets 0-13: Chapter 1 (nouns, articles, adjective agreement)
+   Sets 14-17: Chapter 2 (-ER verb conjugation in context)
    ═══════════════════════════════════════════════════════════════ */
 
 const HW_BANK = [
@@ -325,6 +327,39 @@ const HW_BANK = [
       verbs: [{en:'We announce a metal',fr:'nous annonçons un métal'},{en:'I announce a pipe',fr:"j'annonce un tuyau"},{en:'She moves a pipe',fr:'elle déplace un tuyau'},{en:'You (plural) move a core',fr:'vous déplacez un noyau'},{en:'We encourage a core',fr:'nous encourageons un noyau'},{en:'He encourages a metal',fr:'il encourage un métal'}],
       nouns: [{en:'a loyal core',fr:'un noyau loyal'},{en:'a normal core',fr:'un noyau normal'},{en:'a normal pipe',fr:'un tuyau normal'},{en:'an original pipe',fr:'un tuyau original'},{en:'an original metal',fr:'un métal original'},{en:'a loyal metal',fr:'un métal loyal'}],
       adj: [{en:'a loyal core',fr:'un noyau loyal'},{en:'loyal metals',fr:'des métaux loyaux'},{en:'a normal pipe',fr:'un tuyau normal'},{en:'normal cores',fr:'des noyaux normaux'},{en:'an original metal',fr:'un métal original'},{en:'original pipes',fr:'des tuyaux originaux'}]
+    } },
+  /* ── Sets 14-17: Chapter 2 — -ER verb conjugation in context ── */
+  { verbs: [{w:'travailler',m:'to work'},{w:'étudier',m:'to study'},{w:'demander',m:'to ask'}],
+    nouns: [{w:'cours',g:'m',m:'class'},{w:'question',g:'f',m:'question'},{w:'idée',g:'f',m:'idea'}],
+    adj: [{w:'difficile',m:'difficult'},{w:'facile',m:'easy'},{w:'intéressant',m:'interesting'}],
+    sentences: {
+      verbs: [{en:'On works',fr:'on travaille'},{en:'You (plural) work',fr:'vous travaillez'},{en:'I study',fr:"j'étudie"},{en:'Pierre studies',fr:'Pierre étudie',alt:['pierre étudie']},{en:'You (informal) ask a question',fr:'tu demandes une question'},{en:'They (f) ask',fr:'elles demandent'}],
+      nouns: [{en:'a difficult class',fr:'un cours difficile'},{en:'an interesting class',fr:'un cours intéressant'},{en:'an easy question',fr:'une question facile'},{en:'a difficult question',fr:'une question difficile'},{en:'an interesting idea',fr:'une idée intéressante'},{en:'an easy idea',fr:'une idée facile'}],
+      adj: [{en:'a difficult class',fr:'un cours difficile'},{en:'difficult questions',fr:'des questions difficiles'},{en:'an easy question',fr:'une question facile'},{en:'easy ideas',fr:'des idées faciles'},{en:'an interesting idea',fr:'une idée intéressante'},{en:'interesting classes',fr:'des cours intéressants'}]
+    } },
+  { verbs: [{w:'expliquer',m:'to explain'},{w:'visiter',m:'to visit'},{w:'utiliser',m:'to use'}],
+    nouns: [{w:'problème',g:'m',m:'problem'},{w:'réponse',g:'f',m:'answer'},{w:'histoire',g:'f',m:'story'}],
+    adj: [{w:'moderne',m:'modern'},{w:'simple',m:'simple'},{w:'sérieux',m:'serious'}],
+    sentences: {
+      verbs: [{en:'She explains',fr:'elle explique'},{en:'We explain a book',fr:'nous expliquons un livre'},{en:'On visits a school',fr:'on visite une école'},{en:'You (plural) visit',fr:'vous visitez'},{en:'I use',fr:"j'utilise"},{en:'They use a door',fr:'ils utilisent une porte'}],
+      nouns: [{en:'a simple problem',fr:'un problème simple'},{en:'a serious problem',fr:'un problème sérieux'},{en:'a modern answer',fr:'une réponse moderne'},{en:'a simple answer',fr:'une réponse simple'},{en:'a serious story',fr:'une histoire sérieuse'},{en:'a modern story',fr:'une histoire moderne'}],
+      adj: [{en:'a modern answer',fr:'une réponse moderne'},{en:'modern problems',fr:'des problèmes modernes'},{en:'a simple story',fr:'une histoire simple'},{en:'simple answers',fr:'des réponses simples'},{en:'a serious problem',fr:'un problème sérieux'},{en:'serious stories',fr:'des histoires sérieuses'}]
+    } },
+  { verbs: [{w:'déranger',m:'to disturb'},{w:'mélanger',m:'to mix'},{w:'prononcer',m:'to pronounce'}],
+    nouns: [{w:'temps',g:'m',m:'time'},{w:'chose',g:'f',m:'thing'},{w:'endroit',g:'m',m:'place'}],
+    adj: [{w:'différent',m:'different'},{w:'possible',m:'possible'},{w:'nécessaire',m:'necessary'}],
+    sentences: {
+      verbs: [{en:'We disturb',fr:'nous dérangeons'},{en:'He disturbs a friend',fr:'il dérange un ami'},{en:'We mix',fr:'nous mélangeons'},{en:'She mixes',fr:'elle mélange'},{en:'We pronounce',fr:'nous prononçons'},{en:'You (informal) pronounce',fr:'tu prononces'}],
+      nouns: [{en:'a different time',fr:'un temps différent'},{en:'a necessary time',fr:'un temps nécessaire'},{en:'a possible thing',fr:'une chose possible'},{en:'a different thing',fr:'une chose différente'},{en:'a necessary place',fr:'un endroit nécessaire'},{en:'a possible place',fr:'un endroit possible'}],
+      adj: [{en:'a different thing',fr:'une chose différente'},{en:'different places',fr:'des endroits différents'},{en:'a possible place',fr:'un endroit possible'},{en:'possible things',fr:'des choses possibles'},{en:'a necessary time',fr:'un temps nécessaire'},{en:'necessary things',fr:'des choses nécessaires'}]
+    } },
+  { verbs: [{w:'oublier',m:'to forget'},{w:'enseigner',m:'to teach'},{w:'quitter',m:'to leave'}],
+    nouns: [{w:'leçon',g:'f',m:'lesson'},{w:'professeur',g:'m',m:'teacher'},{w:'exercice',g:'m',m:'exercise'}],
+    adj: [{w:'excellent',m:'excellent'},{w:'utile',m:'useful'},{w:'libre',m:'free'}],
+    sentences: {
+      verbs: [{en:'I forget',fr:"j'oublie"},{en:'They forget a book',fr:'ils oublient un livre'},{en:'On teaches',fr:'on enseigne'},{en:'You (plural) teach',fr:'vous enseignez'},{en:'She leaves a school',fr:'elle quitte une école'},{en:'We leave',fr:'nous quittons'}],
+      nouns: [{en:'an excellent lesson',fr:'une leçon excellente'},{en:'a useful lesson',fr:'une leçon utile'},{en:'an excellent teacher',fr:'un professeur excellent'},{en:'a free teacher',fr:'un professeur libre'},{en:'a useful exercise',fr:'un exercice utile'},{en:'a free exercise',fr:'un exercice libre'}],
+      adj: [{en:'an excellent teacher',fr:'un professeur excellent'},{en:'excellent lessons',fr:'des leçons excellentes'},{en:'a useful exercise',fr:'un exercice utile'},{en:'useful teachers',fr:'des professeurs utiles'},{en:'a free lesson',fr:'une leçon libre'},{en:'free exercises',fr:'des exercices libres'}]
     } },
 ];
 
@@ -595,9 +630,9 @@ function pickWords(type, count) {
 
 /* Introduction order by difficulty — irregular adj (beau/nouveau/vieux) come LAST */
 const INTRO_ORDER = {
-  verb: [0,1,2,7,3,4,8,9,5,6,10,11,12,13],
-  noun: [0,1,2,7,3,8,9,4,5,6,10,11,12,13],
-  adj:  [0,1,2,7,8,9,5,12,6,10,11,13,3,4]
+  verb: [0,1,2,7,3,4,8,9,5,6,10,11,12,13,14,15,17,16],
+  noun: [0,1,2,7,3,8,9,4,5,6,10,11,12,13,14,15,16,17],
+  adj:  [0,1,2,7,8,9,5,12,6,10,11,13,3,4,14,15,16,17]
 };
 
 function buildSession() {
